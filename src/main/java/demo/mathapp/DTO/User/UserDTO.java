@@ -1,4 +1,4 @@
-package demo.mathapp.DTO;
+package demo.mathapp.DTO.User;
 
 import lombok.Data;
 

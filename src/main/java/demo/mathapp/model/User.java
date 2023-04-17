@@ -18,6 +18,7 @@ public class User {
     private String secondName;
     private String email;
     private String role;
+    private String password;
     @OneToOne(mappedBy = "user",cascade = {CascadeType.ALL})
     private Teacher teacher;
     @OneToOne(mappedBy = "user",cascade = {CascadeType.ALL})

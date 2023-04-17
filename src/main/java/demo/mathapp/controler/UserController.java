@@ -1,10 +1,7 @@
 package demo.mathapp.controler;
 
-import demo.mathapp.DTO.UserInfoDTO;
-import demo.mathapp.model.User;
-import demo.mathapp.DTO.UserDTO;
+import demo.mathapp.DTO.User.GetUserTestInfo;
 import demo.mathapp.service.UserService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,26 +17,26 @@ public class UserController {
     }
 
     @GetMapping("/user/role/{userRole}")
-    public List<UserInfoDTO> getUsersByRole(@PathVariable String userRole) {
+    public List<GetUserTestInfo> getUsersByRole(@PathVariable String userRole) {
         return userService.getUsersByRole(userRole);
     }
 
     @GetMapping("/user/email/{userEmail}")
-    public List<UserInfoDTO> getUserByEmail(@PathVariable String userEmail) {
+    public List<GetUserTestInfo> getUserByEmail(@PathVariable String userEmail) {
         return userService.getUserByEmail(userEmail);
     }
 
     @GetMapping
-    public List<UserInfoDTO> getUsers() {
+    public List<GetUserTestInfo> getUsers() {
         return userService.getUsers();
     }
 
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) {
-        return ResponseEntity.status(201).body(
-                userService.createUser(userDTO)
-        );
-    }
+//    @PostMapping
+//    public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) {
+//        return ResponseEntity.status(201).body(
+//                userService.createUser(userDTO)
+//        );
+//    }
 
     @DeleteMapping("{userId}")
     public void deleteUser(@PathVariable Long userId) {

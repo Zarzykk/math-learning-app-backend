@@ -18,7 +18,10 @@ public class Teacher {
     @OneToOne(cascade = {CascadeType.ALL})
     private User user;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private List<SchoolClass> classes;
 
+    public Teacher(long id) {
+        this.id = id;
+    }
 }

@@ -11,6 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class Student {
+
+    public Student(long id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -19,8 +24,8 @@ public class Student {
     private User user;
     @ManyToOne
     private SchoolClass studentClass;
-    @OneToMany(mappedBy = "student",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private List<HomeworkResult> homeworkResults;
-    @OneToMany(mappedBy = "student",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private List<TestResult> testResults;
 }

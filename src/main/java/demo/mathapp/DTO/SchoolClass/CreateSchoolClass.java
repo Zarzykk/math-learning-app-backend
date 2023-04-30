@@ -9,6 +9,6 @@ import lombok.Data;
 public class CreateSchoolClass {
     private ClassYear classYear;
     private String classIndex;
-    private Teacher teacher;
-    private School school;
+    private long teacherId;
+    private long schoolId;
 }

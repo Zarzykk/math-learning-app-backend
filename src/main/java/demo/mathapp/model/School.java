@@ -12,13 +12,17 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 public class School {
+    public School(long id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private SchoolType schoolType;
     @Column(unique = true)
     private String schoolName;
-    @OneToMany(mappedBy = "school",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "school", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private List<SchoolClass> schoolClasses;
 
 }

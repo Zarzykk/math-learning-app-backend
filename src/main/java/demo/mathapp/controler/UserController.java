@@ -1,10 +1,12 @@
 package demo.mathapp.controler;
 
 import demo.mathapp.DTO.User.GetUserTestInfo;
+import demo.mathapp.DTO.User.UserDTO;
 import demo.mathapp.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -17,12 +19,12 @@ public class UserController {
     }
 
     @GetMapping("/user/role/{userRole}")
-    public List<GetUserTestInfo> getUsersByRole(@PathVariable String userRole) {
+    public List<UserDTO> getUsersByRole(@PathVariable String userRole) {
         return userService.getUsersByRole(userRole);
     }
 
     @GetMapping("/user/email/{userEmail}")
-    public List<GetUserTestInfo> getUserByEmail(@PathVariable String userEmail) {
+    public Optional<UserDTO> getUserByEmail(@PathVariable String userEmail) {
         return userService.getUserByEmail(userEmail);
     }
 

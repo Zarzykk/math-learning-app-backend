@@ -11,6 +11,22 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 public class Task {
+    public Task(String text, double points, Homework homework, List<HomeworkAnswer> homeworkAnswers, MaterialTopic materialTopic) {
+        this.text = text;
+        this.points = points;
+        this.homework = homework;
+        this.homeworkAnswers = homeworkAnswers;
+        this.materialTopic = materialTopic;
+    }
+
+    public Task(String text, double points, Test test, List<TestAnswer> testAnswers, MaterialTopic materialTopic) {
+        this.text = text;
+        this.points = points;
+        this.test = test;
+        this.testAnswers = testAnswers;
+        this.materialTopic = materialTopic;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

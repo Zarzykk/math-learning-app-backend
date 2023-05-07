@@ -2,26 +2,19 @@ package demo.mathapp.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @NoArgsConstructor
 @Data
-public class Student {
+@DiscriminatorValue(value = "STUDENT")
+public class Student extends User{
 
-    public Student(long id) {
-        this.id = id;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private User user;
     @ManyToOne
     private SchoolClass studentClass;
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})

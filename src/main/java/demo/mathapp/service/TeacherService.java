@@ -1,23 +1,21 @@
 package demo.mathapp.service;
 
-import demo.mathapp.DTO.Teacher.CreateTeacher;
 import demo.mathapp.model.Teacher;
-import demo.mathapp.repository.TeacherRepository;
-import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
+import demo.mathapp.model.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-@AllArgsConstructor
-public class TeacherService {
-    private final UserService userService;
+public interface TeacherService {
 
-    private final TeacherRepository teacherRepository;
-    private final ModelMapper modelMapper;
+    Teacher createTeacher(Teacher teacher);
 
-    public Teacher createTeacher(CreateTeacher createTeacher){
-        Teacher teacher = modelMapper.map(createTeacher,Teacher.class);
-        teacher.setUser(userService.createUser(createTeacher.getUser()));
-        return teacherRepository.save(teacher);
-    }
+    void deleteTeacher(Long id);
+
+    Teacher updateTeacher(Long id,Teacher teacher);
+
+    Teacher getTeacherById(Long id);
+
+    Teacher getTeacherByEmail(String email);
 }

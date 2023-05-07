@@ -1,38 +1,26 @@
 package demo.mathapp.service;
 
+import demo.mathapp.ClassYear;
 import demo.mathapp.DTO.Student.CreateStudent;
-import demo.mathapp.DTO.Student.GetStudentTestInfo;
 import demo.mathapp.model.Student;
-import demo.mathapp.repository.StudentRepository;
-import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
+import demo.mathapp.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+
 
 @Service
-@AllArgsConstructor
-public class StudentService {
-    private final UserService userService;
+public interface StudentService {
 
-    private final StudentRepository studentRepository;
-    private final ModelMapper modelMapper;
+    Student getStudentByEmail(String email);
 
-    public Student createStudent(CreateStudent createStudent) {
-        Student student = modelMapper.map(createStudent, Student.class);
-        student.setUser(userService.createUser(createStudent.getUser()));
-        return studentRepository.save(student);
-    }
+    Student createStudent(Student student);
 
-    public void deleteStudent(Long id) {
-        studentRepository.deleteById(id);
-    }
+    void deleteStudent(Long id);
 
-    public List<GetStudentTestInfo> getAllStudents() {
-        return studentRepository.findAll()
-                .stream()
-                .map(student -> modelMapper.map(student,GetStudentTestInfo.class))
-                .collect(Collectors.toList());
-    }
+    Student updateStudent(Long id,Student student);
+
+    Student getStudentById(Long id);
+
 }

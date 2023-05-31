@@ -12,23 +12,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
-public class MaterialService {
-    private final MaterialRepository materialRepository;
-    private final ModelMapper modelMapper;
+public interface MaterialService {
+    List<Material> findMaterialsBySchoolType(SchoolType schoolType);
 
-    public Material createMaterial(CreateMaterial material){
-        return materialRepository.save(modelMapper.map(material,Material.class));
-    }
+    Material createMaterial(Material material);
 
-    public List<Material> getSchoolMaterials(SchoolType schoolType){
-        return materialRepository.findMaterialsBySchoolType(schoolType);
-    }
+    Material updateMaterial(Long id,Material material);
 
+    void deleteMaterial(Long id);
 
-    public Material getMaterialByYear(SchoolType schoolType, ClassYear classYear) {
-        Material material = new Material();
-        material.setId(materialRepository.findMaterialBySchoolTypeAndClassYear(schoolType,classYear).getId());
-        return material;
-    }
+    Material findMaterialBySchoolTypeAndYear(SchoolType schoolType,ClassYear classYear);
 }

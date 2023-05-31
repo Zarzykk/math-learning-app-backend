@@ -13,24 +13,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
-public class SchoolService {
-    private final SchoolRepository schoolRepository;
-    private final ModelMapper modelMapper;
+public interface SchoolService {
+    List<School> getSchoolsBySchoolType(SchoolType schoolType);
 
-    public School createSchool(CreateSchool school) {
-        return schoolRepository.save(modelMapper.map(school,School.class));
-    }
+    School createSchool(School school);
 
-    public School getSchoolById(Long id){
-        return schoolRepository.findById(id).orElseThrow();
-    }
+    void deleteSchool(Long id);
 
-    public List<GetSchoolName> getSchoolsByType(SchoolType type){
-        return schoolRepository.findSchoolsBySchoolType(type)
-                .stream()
-                .map(school -> modelMapper.map(school,GetSchoolName.class))
-                .collect(Collectors.toList());
-    }
+    School updateSchool(Long id,School school);
+
+
 
 }

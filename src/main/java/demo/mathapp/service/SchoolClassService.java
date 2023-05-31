@@ -1,27 +1,24 @@
 package demo.mathapp.service;
 
 import demo.mathapp.DTO.SchoolClass.CreateSchoolClass;
+import demo.mathapp.model.School;
 import demo.mathapp.model.SchoolClass;
 import demo.mathapp.repository.SchoolClassRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-@AllArgsConstructor
-public class SchoolClassService {
-    private final MaterialService materialService;
-    private final SchoolService schoolService;
+public interface SchoolClassService {
+    List<SchoolClass> getSchoolClassesBySchoolName(String schoolName);
 
-    private final SchoolClassRepository schoolClassRepository;
-    private final ModelMapper modelMapper;
+    SchoolClass createSchoolClass(SchoolClass schoolClass);
 
-    public SchoolClass createSchoolClass(CreateSchoolClass createSchoolClass){
-        SchoolClass schoolClass = modelMapper.map(createSchoolClass, SchoolClass.class);
-        schoolClass.setMaterial(materialService.getMaterialByYear(
-                schoolService.getSchoolById(schoolClass.getSchool().getId()).getSchoolType(),
-                schoolClass.getClassYear()
-        ));
-        return schoolClassRepository.save(schoolClass);
-    }
+    SchoolClass updateSchoolClass(Long id,SchoolClass schoolClass);
+
+    void deleteSchoolClass(Long classId);
+
+
 }

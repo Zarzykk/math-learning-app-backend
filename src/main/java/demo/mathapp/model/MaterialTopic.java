@@ -4,14 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 public class MaterialTopic {
-    public MaterialTopic(long id) {
-        this.id = id;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +17,6 @@ public class MaterialTopic {
     private String name;
     @ManyToOne
     private Material material;
-    @OneToOne(mappedBy = "materialTopic")
-    private Task task;
+    @OneToMany(mappedBy = "materialTopic")
+    private List<Task> tasks;
 }

@@ -2,6 +2,8 @@ package demo.mathapp.repository;
 
 import demo.mathapp.model.Test;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface TestRepository extends JpaRepository<Test, Long> {
+@Repository
+public interface TestRepository extends WorkRepository{
 }

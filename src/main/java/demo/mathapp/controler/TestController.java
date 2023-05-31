@@ -1,38 +1,31 @@
 package demo.mathapp.controler;
 
-import demo.mathapp.DTO.Test.CreateTest;
-import demo.mathapp.DTO.Test.GetTest;
 import demo.mathapp.model.Test;
-import demo.mathapp.service.TaskService;
 import demo.mathapp.service.TestService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequiredArgsConstructor
-@RequestMapping("/api")
+@AllArgsConstructor
+@RequestMapping("/api/tests")
 public class TestController {
-
     private final TestService testService;
-    private final TaskService taskService;
 
-    @PostMapping("/test/create")
-    public ResponseEntity<Test> createTest(@RequestBody CreateTest createTest) {
-        Test test = testService.createTest(createTest);
-        taskService.setTaskTest(test.getTasks(), test.getId());
-        return ResponseEntity.status(201).body(test);
+    @PostMapping("/create")
+    public ResponseEntity<Test> createTest(@RequestBody Test test){
+        return ResponseEntity.ok(testService.createTest(test));
     }
 
-    @GetMapping("/test/{id}")
-    public GetTest getTest(@PathVariable Long id) {
-        return testService.getClassTest(id);
-    }
-
-    @DeleteMapping("/test/{id}")
-    public ResponseEntity<?> deleteTest(@PathVariable Long id) {
-        testService.deleteTest(id);
+    @DeleteMapping("/delete/{testId}")
+    public ResponseEntity<?> deleteTest(@PathVariable Long testId){
+        testService.deleteTest(testId);
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/update/{testId}")
+    public ResponseEntity<Test> updateTest(@PathVariable Long testId,
+                                           @RequestBody Test test){
+        return ResponseEntity.ok(testService.updateTest(testId, test));
+    }
 }

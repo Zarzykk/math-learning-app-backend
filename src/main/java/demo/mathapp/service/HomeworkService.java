@@ -1,16 +1,19 @@
 package demo.mathapp.service;
 
 import demo.mathapp.model.Homework;
-import demo.mathapp.repository.HomeworkRepository;
-import lombok.AllArgsConstructor;
+import demo.mathapp.model.SchoolClass;
 import org.springframework.stereotype.Service;
 
-@Service
-@AllArgsConstructor
-public class HomeworkService {
-    private final HomeworkRepository homeworkRepository;
+import java.util.List;
 
-//    public Homework createHomework(){
-//       return homeworkRepository.save();
-//    }
+@Service
+public interface HomeworkService {
+
+    Homework createHomework(Homework homework);
+
+    void deleteHomework(Long id);
+
+    Homework updateHomework(Long id, Homework homework);
+
+    List<Homework> findHomeworksBySchoolClass(Long schoolClassId);
 }

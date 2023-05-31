@@ -1,6 +1,7 @@
 package demo.mathapp.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -8,25 +9,11 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
-public class Homework {
+@DiscriminatorValue(value = "HOMEWORK")
+public class Homework extends Work{
 
-    public Homework(long id) {
-        this.id = id;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @NotNull
-    private Date deadline;
-
-    @ManyToOne
-    private SchoolClass schoolClass;
-    @OneToMany(mappedBy = "homework", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    private List<Task> tasks;
-    @OneToMany(mappedBy = "homework", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    private List<HomeworkResult> homeworkResults;
 }

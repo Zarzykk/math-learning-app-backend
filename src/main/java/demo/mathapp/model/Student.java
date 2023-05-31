@@ -18,7 +18,5 @@ public class Student extends User{
     @ManyToOne
     private SchoolClass studentClass;
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    private List<HomeworkResult> homeworkResults;
-    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    private List<TestResult> testResults;
+    private List<WorkResult> workResults;
 }

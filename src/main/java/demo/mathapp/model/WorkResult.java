@@ -26,4 +26,6 @@ public class WorkResult {
     @ManyToOne
     private Student student;
     private boolean passed;
+    @ManyToOne
+    private Work work;
 }

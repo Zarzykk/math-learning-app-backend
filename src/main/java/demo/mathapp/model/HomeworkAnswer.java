@@ -1,23 +1,17 @@
 package demo.mathapp.model;
 
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
-@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
+@Data
 @NoArgsConstructor
-public class HomeworkAnswer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    private double points;
-    private String answer;
-
-    @ManyToOne
-    private HomeworkResult homeworkResult;
-    @ManyToOne
-    private Task task;
+@DiscriminatorValue(value = "HOMEWORK")
+public class HomeworkAnswer extends WorkAnswer{
 }

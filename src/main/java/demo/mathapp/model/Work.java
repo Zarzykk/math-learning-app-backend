@@ -35,5 +35,9 @@ public class Work {
     private SchoolClass schoolClass;
     @OneToMany(mappedBy = "work",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
     private List<Task> tasks;
+    @OneToMany(mappedBy = "work",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+    private List<TestResult> testResults;
+    @OneToMany(mappedBy = "work",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+    private List<HomeworkResult> homeworkResults;
 
 }

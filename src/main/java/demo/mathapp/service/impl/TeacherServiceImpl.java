@@ -3,14 +3,10 @@ package demo.mathapp.service.impl;
 import demo.mathapp.PasswordEncoder;
 import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.Teacher;
-import demo.mathapp.model.User;
 import demo.mathapp.repository.TeacherRepository;
 import demo.mathapp.service.TeacherService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +35,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public Teacher getTeacherById(Long id) {
-        return teacherRepository.findTeacherById(id)
+        return (Teacher) teacherRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Teacher not found"));
     }
 

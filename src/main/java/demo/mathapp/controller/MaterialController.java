@@ -1,11 +1,9 @@
-package demo.mathapp.controler;
+package demo.mathapp.controller;
 
 import demo.mathapp.ClassYear;
-import demo.mathapp.DTO.Material.CreateMaterial;
 import demo.mathapp.SchoolType;
 import demo.mathapp.model.Material;
 import demo.mathapp.service.MaterialService;
-import demo.mathapp.service.MaterialTopicService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

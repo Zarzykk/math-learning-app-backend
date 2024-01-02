@@ -12,7 +12,9 @@ public interface TestService {
 
     void deleteTest(Long id);
 
-    Test updateTest(Long id,Test test);
+    Test updateTest(Long id, Test test);
 
     List<Test> findTestsBySchoolClass(Long schoolClassId);
+
+    List<Test> findAllTestsPassedOrFailedForStudent(Long studentId, boolean passed);
 }

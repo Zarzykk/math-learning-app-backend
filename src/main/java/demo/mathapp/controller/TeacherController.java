@@ -1,4 +1,4 @@
-package demo.mathapp.controler;
+package demo.mathapp.controller;
 
 import demo.mathapp.model.Teacher;
 import demo.mathapp.service.TeacherService;
@@ -17,7 +17,7 @@ public class TeacherController {
         return ResponseEntity.ok(teacherService.createTeacher(teacher));
     }
 
-    @GetMapping("/email/{email}")
+    @GetMapping("get/email/{email}")
     public ResponseEntity<Teacher> getTeacherByEmail(@PathVariable String email) {
         return ResponseEntity.ok(teacherService.getTeacherByEmail(email));
     }
@@ -28,7 +28,7 @@ public class TeacherController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/id/{teacherId}")
+    @GetMapping("get/id/{teacherId}")
     public ResponseEntity<Teacher> getTeacherById(@PathVariable Long teacherId) {
         return ResponseEntity.ok(teacherService.getTeacherById(teacherId));
     }

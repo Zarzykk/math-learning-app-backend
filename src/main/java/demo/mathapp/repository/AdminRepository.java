@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface AdminRepository extends UserRepository {
     @Query("SELECT a from Admin a")
     List<Admin> findAllAdmins();
-    Optional<Admin> findAdminById(Long id);
+
 }

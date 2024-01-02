@@ -2,17 +2,17 @@ package demo.mathapp.service.impl;
 
 import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.Homework;
-import demo.mathapp.model.SchoolClass;
 import demo.mathapp.model.Task;
-import demo.mathapp.model.Work;
 import demo.mathapp.repository.HomeworkRepository;
+import demo.mathapp.repository.HomeworkResultRepository;
+import demo.mathapp.repository.SchoolClassRepository;
+import demo.mathapp.repository.TaskRepository;
 import demo.mathapp.service.HomeworkService;
+import demo.mathapp.transferobject.HomeworkTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -22,6 +22,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class HomeworkServiceImpl implements HomeworkService {
     private final HomeworkRepository homeworkRepository;
+    private final SchoolClassRepository schoolClassRepository;
+    private final TaskRepository taskRepository;
+    private final HomeworkResultRepository homeworkResultRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -74,5 +77,30 @@ public class HomeworkServiceImpl implements HomeworkService {
     private long calculateMaxWorkTime(Date start, Date end) {
         long diff = Math.abs(end.getTime() - start.getTime());
         return TimeUnit.SECONDS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
+    private HomeworkTO entityToTransfer(Homework homework){
+        HomeworkTO to = new HomeworkTO();
+        to.setActivationTime(homework.getActivationTime());
+        to.setDeactivationTime(homework.getDeactivationTime());
+        to.setMaxPoints(homework.getMaxPoints());
+        to.setMaxWorkTime(homework.getMaxWorkTime());
+        to.setId(homework.getId());
+        to.setSchoolClassId(homework.getSchoolClass().getId());
+        return to;
+    }
+
+    private Homework transferToEntity(HomeworkTO to){
+        Homework homework = new Homework();
+        homework.setActivationTime(to.getActivationTime());
+        homework.setDeactivationTime(to.getDeactivationTime());
+        homework.setMaxWorkTime(to.getMaxWorkTime());
+        homework.setId(to.getId());
+        homework.setMaxPoints(to.getMaxPoints());
+//        homework.setHomeworkResults();
+        homework.setTasks(taskRepository.findTasksByWork_Id(homework.getId()));
+        homework.setSchoolClass(schoolClassRepository.findById(to.getSchoolClassId())
+                .orElseThrow());
+        return homework;
     }
 }

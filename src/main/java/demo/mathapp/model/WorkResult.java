@@ -28,4 +28,8 @@ public class WorkResult {
     private boolean passed;
     @ManyToOne
     private Work work;
+    @OneToMany(mappedBy = "result",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+    private List<TestAnswer> testAnswers;
+    @OneToMany(mappedBy = "result",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+    private List<HomeworkAnswer> homeworkAnswers;
 }

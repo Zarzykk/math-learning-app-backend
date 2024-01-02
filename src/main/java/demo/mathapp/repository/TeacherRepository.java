@@ -8,8 +8,6 @@ import java.util.Optional;
 @Repository
 public interface TeacherRepository extends UserRepository {
 
-    Optional<Teacher> findTeacherById(Long id);
-
     Optional<Teacher> findTeacherByEmail(String email);
 
 }

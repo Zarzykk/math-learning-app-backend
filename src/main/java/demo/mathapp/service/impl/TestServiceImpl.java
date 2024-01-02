@@ -1,14 +1,17 @@
 package demo.mathapp.service.impl;
 
 import demo.mathapp.exception.ResourceNotFoundException;
+import demo.mathapp.model.Student;
 import demo.mathapp.model.Task;
 import demo.mathapp.model.Test;
 import demo.mathapp.repository.TestRepository;
+import demo.mathapp.service.StudentService;
 import demo.mathapp.service.TestService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TestServiceImpl implements TestService {
     private final TestRepository testRepository;
+    private final StudentService studentService;
     private final ModelMapper modelMapper;
 
     @Override
@@ -58,6 +62,16 @@ public class TestServiceImpl implements TestService {
                 .filter(work -> work.getSchoolClass().getId() == schoolClassId)
                 .map(work -> modelMapper.map(work, Test.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Test> findAllTestsPassedOrFailedForStudent(Long studentId, boolean passed) {
+        Student student = studentService.getStudentById(studentId);
+        List<Test> tests = new ArrayList<>();
+        student.getWorkResults().stream()
+                .filter(workResult -> workResult.isPassed()==passed)
+                .forEach(workResult -> tests.add(modelMapper.map(workResult.getWork(),Test.class)));
+        return tests;
     }
 
     private double calculateMaxPoints(List<Task> tasks) {

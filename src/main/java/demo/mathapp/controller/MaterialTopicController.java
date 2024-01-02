@@ -1,4 +1,4 @@
-package demo.mathapp.controler;
+package demo.mathapp.controller;
 
 import demo.mathapp.model.MaterialTopic;
 import demo.mathapp.service.MaterialTopicService;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class MaterialTopicController {
     private final MaterialTopicService topicService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<MaterialTopic> createTopic(@RequestBody MaterialTopic materialTopic){
         return ResponseEntity.ok(topicService.createTopic(materialTopic));
     }
 
-    @GetMapping("/{topicName}")
+    @GetMapping("/get/{topicName}")
     public ResponseEntity<MaterialTopic> findTopicByName(@PathVariable String topicName){
         return ResponseEntity.ok(topicService.findTopicByName(topicName));
     }

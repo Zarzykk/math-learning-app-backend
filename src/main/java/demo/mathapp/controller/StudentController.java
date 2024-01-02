@@ -1,16 +1,13 @@
-package demo.mathapp.controler;
+package demo.mathapp.controller;
 
-import demo.mathapp.DTO.Student.CreateStudent;
-import demo.mathapp.DTO.Student.GetStudentTestInfo;
 import demo.mathapp.model.Student;
-import demo.mathapp.model.User;
 import demo.mathapp.service.StudentService;
+import demo.mathapp.transferobject.StudentTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +22,7 @@ public class StudentController {
         );
     }
 
-    @GetMapping("/email/{email}")
+    @GetMapping("/get/email/{email}")
     public ResponseEntity<Student> getStudentByEmail(@PathVariable String email) {
         return ResponseEntity.ok(studentService.getStudentByEmail(email));
     }
@@ -45,5 +42,10 @@ public class StudentController {
     public ResponseEntity<Student> updateStudent(@PathVariable Long studentId,
                                                  @RequestBody Student student) {
         return ResponseEntity.ok(studentService.updateStudent(studentId, student));
+    }
+
+    @GetMapping("/{classId}")
+    public ResponseEntity<List<StudentTO>> getStudentsByClass(@PathVariable Long classId){
+        return ResponseEntity.ok(studentService.getStudentsByClass(classId));
     }
 }

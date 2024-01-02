@@ -1,24 +1,25 @@
 package demo.mathapp.service.impl;
 
-import demo.mathapp.ClassYear;
 import demo.mathapp.PasswordEncoder;
 import demo.mathapp.exception.ResourceNotFoundException;
+import demo.mathapp.model.SchoolClass;
 import demo.mathapp.model.Student;
-import demo.mathapp.model.User;
+import demo.mathapp.repository.SchoolClassRepository;
 import demo.mathapp.repository.StudentRepository;
 import demo.mathapp.service.StudentService;
+import demo.mathapp.transferobject.StudentTO;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
     private final PasswordEncoder passwordEncoder;
+    private final SchoolClassRepository classRepository;
 
     @Override
     public Student getStudentByEmail(String email) {
@@ -48,8 +49,23 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student getStudentById(Long id) {
-        return studentRepository.findStudentById(id)
+        return (Student) studentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
+    }
+
+    @Override
+    public List<StudentTO> getStudentsByClass(Long classId) {
+        List<StudentTO> studentTOs = new ArrayList<>();
+        SchoolClass schoolClass = classRepository.findById(classId)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found class by id=" + classId));
+        for (Student student : schoolClass.getStudents()) {
+         StudentTO to = new StudentTO();
+         to.setId(student.getId());
+         to.setFirstName(student.getFirstName());
+         to.setLastName(student.getLastName());
+         studentTOs.add(to);
+        }
+        return studentTOs;
     }
 
 

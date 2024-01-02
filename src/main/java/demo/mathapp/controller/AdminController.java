@@ -1,7 +1,6 @@
-package demo.mathapp.controler;
+package demo.mathapp.controller;
 
 import demo.mathapp.model.Admin;
-import demo.mathapp.model.User;
 import demo.mathapp.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ import java.util.List;
 public class AdminController {
     private final AdminService adminService;
 
-    @GetMapping
+    @GetMapping("/get/all")
     public ResponseEntity<List<Admin>> getAdmins() {
         List<Admin> admins = adminService.getAdmins();
         return ResponseEntity.ok(admins);

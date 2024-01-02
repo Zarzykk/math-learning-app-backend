@@ -1,4 +1,4 @@
-package demo.mathapp.controler;
+package demo.mathapp.controller;
 
 import demo.mathapp.model.Test;
 import demo.mathapp.service.TestService;

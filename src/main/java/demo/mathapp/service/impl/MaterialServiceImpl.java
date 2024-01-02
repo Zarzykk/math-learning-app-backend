@@ -6,6 +6,7 @@ import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.Material;
 import demo.mathapp.repository.MaterialRepository;
 import demo.mathapp.service.MaterialService;
+import demo.mathapp.transferobject.MaterialTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +43,19 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public Material findMaterialBySchoolTypeAndYear(SchoolType schoolType, ClassYear classYear) {
         return materialRepository.findMaterialBySchoolTypeAndClassYear(schoolType, classYear);
+    }
+
+    private MaterialTO entityToTransfer(Material material){
+        MaterialTO to = new MaterialTO();
+        to.setId(material.getId());
+        to.setSchoolType(material.getSchoolType());
+        to.setClassYear(material.getClassYear());
+        return to;
+    }
+
+    private Material transferToEntity(MaterialTO to){
+        Material material = new Material();
+
+        return material;
     }
 }

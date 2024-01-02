@@ -4,7 +4,6 @@ package demo.mathapp.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -26,7 +25,7 @@ public class User {
     @NotEmpty
     private String firstName;
     @NotEmpty
-    private String secondName;
+    private String lastName;
     @NotEmpty
     @Column(unique = true)
     private String email;

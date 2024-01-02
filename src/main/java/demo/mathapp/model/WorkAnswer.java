@@ -24,4 +24,6 @@ public class WorkAnswer {
     @Lob
     @Column(columnDefinition = "text")
     private String answer;
+    @ManyToOne
+    private WorkResult result;
 }

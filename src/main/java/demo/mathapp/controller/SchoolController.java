@@ -1,7 +1,5 @@
-package demo.mathapp.controler;
+package demo.mathapp.controller;
 
-import demo.mathapp.DTO.School.CreateSchool;
-import demo.mathapp.DTO.School.GetSchoolName;
 import demo.mathapp.SchoolType;
 import demo.mathapp.model.School;
 import demo.mathapp.service.SchoolService;
@@ -23,7 +21,7 @@ public class SchoolController {
         return ResponseEntity.ok(schoolService.createSchool(school));
     }
 
-    @GetMapping("/{type}")
+    @GetMapping("/get/{type}")
     public ResponseEntity<List<School>> getSchoolsByType(@PathVariable SchoolType type){
         return ResponseEntity.ok(schoolService.getSchoolsBySchoolType(type));
     }

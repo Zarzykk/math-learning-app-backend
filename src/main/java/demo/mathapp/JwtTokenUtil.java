@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenUtil {
 
+    //TODO przenies secret do zmiennych srodowiskowych
     @Value("${jwt.secret}")
     private String secret;
 

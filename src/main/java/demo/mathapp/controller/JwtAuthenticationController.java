@@ -31,8 +31,9 @@ public class JwtAuthenticationController {
 
     private final UserDetailsService userDetailsService;
 
+    //TODO przenies logike do serwisu i tylko wywolaj 1 metode w kontrolerze
     @PostMapping("/authenticate")
-    public ResponseEntity<LoginResponse> createAuthenticationToken(@RequestBody LoginDTO jwtRequest) throws Exception{
+    public ResponseEntity<LoginResponse> createAuthenticationToken(@RequestBody LoginDTO jwtRequest) throws Exception {
         Authentication authenticate = authenticate(jwtRequest.getEmail(), jwtRequest.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authenticate);
 
@@ -40,16 +41,16 @@ public class JwtAuthenticationController {
         String token = jwtTokenUtil.generateToken(userDetails);
         UserInfo userInfo = new UserInfo(userDetails.getId(), userDetails.getFirstName(), userDetails.getLastName());
 
-        return ResponseEntity.ok(new LoginResponse(userInfo,token));
+        return ResponseEntity.ok(new LoginResponse(userInfo, token));
     }
 
-    private Authentication authenticate(String email, String password) throws Exception{
+    private Authentication authenticate(String email, String password) throws Exception {
         try {
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
-        } catch (DisabledException e){
+        } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
-        } catch (BadCredentialsException e){
-            throw new Exception("INVALID_CREDENTIALS",e);
+        } catch (BadCredentialsException e) {
+            throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
 }

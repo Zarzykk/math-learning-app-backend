@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+//TODO usun te interface'y service
 @Service
 public interface AdminService {
     List<Admin> getAdmins();

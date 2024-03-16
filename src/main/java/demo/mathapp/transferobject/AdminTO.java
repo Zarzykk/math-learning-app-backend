@@ -3,6 +3,7 @@ package demo.mathapp.transferobject;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//TODO DTO zamiast TO
 @Data
 @NoArgsConstructor
 public class AdminTO {

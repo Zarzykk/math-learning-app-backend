@@ -31,10 +31,11 @@ public class AdminController {
         return ResponseEntity.ok(adminService.updateAdmin(adminId, admin));
     }
 
+    //TODO zwroc Void i noContent
     @DeleteMapping("/delete/{adminId}")
-    public ResponseEntity<?> deleteAdmin(@PathVariable Long adminId) {
+    public ResponseEntity<Void> deleteAdmin(@PathVariable Long adminId) {
         adminService.deleteAdmin(adminId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }

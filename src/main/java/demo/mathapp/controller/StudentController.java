@@ -16,6 +16,7 @@ import java.util.List;
 public class StudentController {
     private final StudentService studentService;
 
+    //TODO usun nazwy metod 'create, get itd.' ze sciezek
     @PostMapping("/create")
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         return ResponseEntity.status(201).body(

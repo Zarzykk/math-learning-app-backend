@@ -1,7 +1,7 @@
 package demo.mathapp.controller;
 
 import demo.mathapp.model.Teacher;
-import demo.mathapp.service.TeacherService;
+import demo.mathapp.service.impl.TeacherService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +22,10 @@ public class TeacherController {
         return ResponseEntity.ok(teacherService.getTeacherByEmail(email));
     }
 
-    @DeleteMapping("/delete/{teacherId}")
-    public ResponseEntity<?> deleteTeacher(@PathVariable Long teacherId) {
-        teacherService.deleteTeacher(teacherId);
+    @DeleteMapping("/delete/{teacherId}/{substituteTeacherId}")
+    public ResponseEntity<?> deleteTeacher(@PathVariable Long teacherId,
+                                           @PathVariable Long substituteTeacherId) {
+        teacherService.deleteTeacher(teacherId, substituteTeacherId);
         return ResponseEntity.ok().build();
     }
 

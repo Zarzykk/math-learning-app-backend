@@ -4,9 +4,9 @@ import demo.mathapp.CustomUserDetails;
 import demo.mathapp.LoginResponse;
 import demo.mathapp.JwtTokenUtil;
 import demo.mathapp.service.impl.UserDetailsService;
-import demo.mathapp.transferobject.LoginDto;
+import demo.mathapp.transferobject.LoginDTO;
 import demo.mathapp.transferobject.UserInfo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,19 +19,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class JwtAuthenticationController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+
+    private final JwtTokenUtil jwtTokenUtil;
+
+
+    private final UserDetailsService userDetailsService;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginDto jwtRequest) throws Exception{
+    public ResponseEntity<LoginResponse> createAuthenticationToken(@RequestBody LoginDTO jwtRequest) throws Exception{
         Authentication authenticate = authenticate(jwtRequest.getEmail(), jwtRequest.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authenticate);
 

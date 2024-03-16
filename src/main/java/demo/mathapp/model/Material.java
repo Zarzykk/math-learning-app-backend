@@ -1,7 +1,6 @@
 package demo.mathapp.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import demo.mathapp.ClassYear;
 import demo.mathapp.SchoolType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +18,7 @@ public class Material {
     @Column(nullable = false)
     private SchoolType schoolType;
     @Column(nullable = false)
-    private ClassYear classYear;
+    private int classYear;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "material",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
     private List<SchoolClass> classList;

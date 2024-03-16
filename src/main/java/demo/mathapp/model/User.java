@@ -1,15 +1,15 @@
 package demo.mathapp.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.Objects;
 
 @Entity(name = "users")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -17,6 +17,7 @@ import javax.validation.constraints.NotEmpty;
         name = "USER_TYPE",
         discriminatorType = DiscriminatorType.STRING
 )
+@ToString
 public class User {
 
     @Id
@@ -32,4 +33,15 @@ public class User {
     @NotEmpty
     private String password;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(this.getId(), user.getId()) &&
+                Objects.equals(this.getFirstName(), user.getFirstName()) &&
+                Objects.equals(this.getLastName(), user.getLastName()) &&
+                Objects.equals(this.getPassword(), user.getPassword()) &&
+                Objects.equals(this.getEmail(), user.getEmail());
+    }
 }

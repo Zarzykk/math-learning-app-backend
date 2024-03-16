@@ -1,6 +1,7 @@
 package demo.mathapp;
 
 import demo.mathapp.transferobject.UserInfo;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ public class LoginResponse implements Serializable {
     private String token;
     private UserInfo userInfo;
 
-    public LoginResponse(UserInfo userInfo,String token) {
+    public LoginResponse(UserInfo userInfo, String token) {
         this.userInfo = userInfo;
         this.token = token;
     }

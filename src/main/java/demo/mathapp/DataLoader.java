@@ -1,7 +1,10 @@
 package demo.mathapp;
 
+import demo.mathapp.config.ApplicationConfigurationProperties;
 import demo.mathapp.model.*;
 import demo.mathapp.service.*;
+import demo.mathapp.service.impl.SchoolClassService;
+import demo.mathapp.service.impl.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,9 +21,13 @@ public class DataLoader implements CommandLineRunner {
     private final SchoolService schoolService;
     private final SchoolClassService schoolClassService;
     private final TestService testService;
+    private final ApplicationConfigurationProperties applicationConfigurationProperties;
 
     @Override
     public void run(String... args) throws Exception {
+        if (applicationConfigurationProperties.getEnv().equals("TEST")) {
+            return;
+        }
         School school = createSchool();
         Teacher teacher = createTeacher();
         SchoolClass firstClass = createFirstClass(school, teacher);
@@ -74,7 +81,7 @@ public class DataLoader implements CommandLineRunner {
     private SchoolClass createSecondClass(School school, Teacher teacher) {
         SchoolClass sc1 = new SchoolClass();
         sc1.setSchool(school);
-        sc1.setClassYear(ClassYear.IV);
+        sc1.setClassYear(4);
         sc1.setClassIndex("a");
         sc1.setTeacher(teacher);
         return schoolClassService.createSchoolClass(sc1);
@@ -116,7 +123,7 @@ public class DataLoader implements CommandLineRunner {
     private SchoolClass createFirstClass(School school, Teacher teacher){
         SchoolClass sc1 = new SchoolClass();
         sc1.setSchool(school);
-        sc1.setClassYear(ClassYear.III);
+        sc1.setClassYear(3);
         sc1.setClassIndex("a");
         sc1.setTeacher(teacher);
         return schoolClassService.createSchoolClass(sc1);

@@ -5,7 +5,6 @@ import demo.mathapp.model.Material;
 import demo.mathapp.model.SchoolClass;
 import demo.mathapp.repository.SchoolClassRepository;
 import demo.mathapp.service.MaterialService;
-import demo.mathapp.service.SchoolClassService;
 import demo.mathapp.transferobject.ClassTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,16 +14,17 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SchoolClassServiceImpl implements SchoolClassService {
+public class SchoolClassService {
     private final SchoolClassRepository classRepository;
     private final MaterialService materialService;
 
-    @Override
     public List<SchoolClass> getSchoolClassesBySchoolName(String schoolName) {
         return classRepository.findSchoolClassBySchool_SchoolName(schoolName);
     }
 
-    @Override
+    public List<SchoolClass> getAllClasses(){
+        return classRepository.findAll();
+    }
     public SchoolClass createSchoolClass(SchoolClass schoolClass) {
         Material material = materialService.findMaterialBySchoolTypeAndYear(
                 schoolClass.getSchool().getSchoolType(),
@@ -34,7 +34,7 @@ public class SchoolClassServiceImpl implements SchoolClassService {
         return classRepository.save(schoolClass);
     }
 
-    @Override
+
     public SchoolClass updateSchoolClass(Long id, SchoolClass schoolClass) {
         SchoolClass oldClass = classRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Class not found"));
@@ -42,22 +42,14 @@ public class SchoolClassServiceImpl implements SchoolClassService {
         return classRepository.save(oldClass);
     }
 
-    @Override
+
     public void deleteSchoolClass(Long classId) {
         classRepository.deleteById(classId);
     }
 
-    @Override
-    public List<ClassTO> getClassesByTeacher(Long teacherId) {
-        List<ClassTO> classTOList = new ArrayList<>();
-        List<SchoolClass> allByTeacherId = classRepository.findAllByTeacher_Id(teacherId);
-        for (SchoolClass schoolClass : allByTeacherId) {
-            ClassTO to = new ClassTO();
-            to.setId(schoolClass.getId());
-            to.setClassYearAndIndex(schoolClass.getClassName());
-            classTOList.add(to);
-        }
-        return classTOList;
+
+    public List<SchoolClass> getClassesByTeacher(Long teacherId) {
+        return classRepository.findAllByTeacher_Id(teacherId);
     }
 
 }

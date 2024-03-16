@@ -1,6 +1,5 @@
 package demo.mathapp.model;
 
-import demo.mathapp.ClassYear;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +17,7 @@ public class SchoolClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotNull
-    private ClassYear classYear;
+    private int classYear;
     @NotNull
     private String classIndex;
     @OneToMany(mappedBy = "studentClass", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})

@@ -1,6 +1,5 @@
 package demo.mathapp.service;
 
-import demo.mathapp.ClassYear;
 import demo.mathapp.SchoolType;
 import demo.mathapp.model.Material;
 import org.springframework.stereotype.Service;
@@ -17,5 +16,5 @@ public interface MaterialService {
 
     void deleteMaterial(Long id);
 
-    Material findMaterialBySchoolTypeAndYear(SchoolType schoolType,ClassYear classYear);
+    Material findMaterialBySchoolTypeAndYear(SchoolType schoolType,int classYear);
 }

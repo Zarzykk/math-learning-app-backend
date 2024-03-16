@@ -1,6 +1,5 @@
 package demo.mathapp.controller;
 
-import demo.mathapp.ClassYear;
 import demo.mathapp.SchoolType;
 import demo.mathapp.model.Material;
 import demo.mathapp.service.MaterialService;
@@ -28,7 +27,7 @@ public class MaterialController {
 
     @GetMapping("/school/{schoolType}/class/{year}")
     public ResponseEntity<Material> getMaterialBySchoolTypeAndYear(@PathVariable SchoolType schoolType,
-                                                                   @PathVariable ClassYear year) {
+                                                                   @PathVariable int year) {
         return ResponseEntity.ok(materialService.findMaterialBySchoolTypeAndYear(schoolType, year));
     }
 

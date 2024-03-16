@@ -1,6 +1,5 @@
 package demo.mathapp.transferobject;
 
-import demo.mathapp.ClassYear;
 import demo.mathapp.SchoolType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +9,6 @@ import lombok.NoArgsConstructor;
 public class MaterialTO {
     private long id;
     private SchoolType schoolType;
-    private ClassYear classYear;
+    private int classYear;
 
 }

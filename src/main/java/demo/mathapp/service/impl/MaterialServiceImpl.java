@@ -1,6 +1,5 @@
 package demo.mathapp.service.impl;
 
-import demo.mathapp.ClassYear;
 import demo.mathapp.SchoolType;
 import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.Material;
@@ -41,7 +40,7 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public Material findMaterialBySchoolTypeAndYear(SchoolType schoolType, ClassYear classYear) {
+    public Material findMaterialBySchoolTypeAndYear(SchoolType schoolType, int classYear) {
         return materialRepository.findMaterialBySchoolTypeAndClassYear(schoolType, classYear);
     }
 

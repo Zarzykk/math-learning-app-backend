@@ -1,7 +1,7 @@
 package demo.mathapp.controller;
 
 import demo.mathapp.model.SchoolClass;
-import demo.mathapp.service.SchoolClassService;
+import demo.mathapp.service.impl.SchoolClassService;
 import demo.mathapp.transferobject.ClassTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api/class")
 public class SchoolClassController {
-    @Qualifier("schoolClassService")
+
     private final SchoolClassService classService;
 
     @PostMapping("/create")
@@ -40,7 +40,7 @@ public class SchoolClassController {
     }
 
     @GetMapping("/get/{teacherId}")
-    public ResponseEntity<List<ClassTO>> getClassesByTeacher(@PathVariable Long teacherId){
+    public ResponseEntity<List<SchoolClass>> getClassesByTeacher(@PathVariable Long teacherId){
         return ResponseEntity.ok(classService.getClassesByTeacher(teacherId));
     }
 }

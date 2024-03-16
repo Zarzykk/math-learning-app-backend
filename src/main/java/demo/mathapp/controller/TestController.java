@@ -18,35 +18,35 @@ import java.util.Optional;
 public class TestController {
     private final TestService testService;
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Test> createTest(@RequestBody Test test) {
         return ResponseEntity.ok(testService.createTest(test));
     }
 
-    @DeleteMapping("/delete/{testId}")
+    @DeleteMapping("/{testId}")
     public ResponseEntity<?> deleteTest(@PathVariable Long testId) {
         testService.deleteTest(testId);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/update/{testId}")
+    @PutMapping("/{testId}")
     public ResponseEntity<Test> updateTest(@PathVariable Long testId,
                                            @RequestBody Test test) {
         return ResponseEntity.ok(testService.updateTest(testId, test));
     }
 
-    @GetMapping("/get/teacher/{teacherId}")
+    @GetMapping("/teacher/{teacherId}")
     public ResponseEntity<List<TestHeaderTO>> getTeacherTests(@PathVariable Long teacherId,
                                                               @RequestParam Optional<Long> classId) {
         return ResponseEntity.ok(testService.findTeacherTests(teacherId, classId));
     }
 
-    @GetMapping("/get/{testId}")
+    @GetMapping("/{testId}")
     public ResponseEntity<TestTO> getTest(@PathVariable Long testId) {
         return ResponseEntity.ok(testService.getTest(testId));
     }
 
-    @GetMapping("/get/{testId}/details")
+    @GetMapping("/{testId}/details")
     public ResponseEntity<TestBodyTO> getTestDetails(@PathVariable Long testId) {
         return ResponseEntity.ok(testService.getTestDetails(testId));
     }

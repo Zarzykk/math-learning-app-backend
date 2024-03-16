@@ -1,7 +1,8 @@
 package demo.mathapp.service;
 
 import demo.mathapp.model.Student;
-import demo.mathapp.transferobject.StudentTO;
+import demo.mathapp.transferobject.student.StudentBodyTO;
+import demo.mathapp.transferobject.student.StudentTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,4 +23,5 @@ public interface StudentService {
 
     List<StudentTO> getStudentsByClass(Long classId);
 
+    StudentBodyTO getStudentDetails(Long studentId);
 }

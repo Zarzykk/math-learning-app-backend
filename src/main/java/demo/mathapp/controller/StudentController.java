@@ -2,7 +2,8 @@ package demo.mathapp.controller;
 
 import demo.mathapp.model.Student;
 import demo.mathapp.service.StudentService;
-import demo.mathapp.transferobject.StudentTO;
+import demo.mathapp.transferobject.student.StudentBodyTO;
+import demo.mathapp.transferobject.student.StudentTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,8 +45,13 @@ public class StudentController {
         return ResponseEntity.ok(studentService.updateStudent(studentId, student));
     }
 
-    @GetMapping("/{classId}")
+    @GetMapping("/get/{classId}")
     public ResponseEntity<List<StudentTO>> getStudentsByClass(@PathVariable Long classId){
         return ResponseEntity.ok(studentService.getStudentsByClass(classId));
+    }
+
+    @GetMapping("/get/{studentId}/details")
+    public ResponseEntity<StudentBodyTO> getStudentDetails(@PathVariable Long studentId) {
+        return ResponseEntity.ok(studentService.getStudentDetails(studentId));
     }
 }

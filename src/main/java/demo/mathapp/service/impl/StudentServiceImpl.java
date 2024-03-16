@@ -7,7 +7,8 @@ import demo.mathapp.model.Student;
 import demo.mathapp.repository.SchoolClassRepository;
 import demo.mathapp.repository.StudentRepository;
 import demo.mathapp.service.StudentService;
-import demo.mathapp.transferobject.StudentTO;
+import demo.mathapp.transferobject.student.StudentBodyTO;
+import demo.mathapp.transferobject.student.StudentTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +67,17 @@ public class StudentServiceImpl implements StudentService {
          studentTOs.add(to);
         }
         return studentTOs;
+    }
+
+    @Override
+    public StudentBodyTO getStudentDetails(Long studentId) {
+        Student student = getStudentById(studentId);
+        student.getWorkResults();
+//        StudentBodyTO to = StudentBodyTO
+//                .builder()
+//                .
+//                .build();
+        return null;
     }
 
 

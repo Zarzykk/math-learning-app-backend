@@ -1,4 +1,4 @@
-package demo.mathapp.transferobject;
+package demo.mathapp.transferobject.student;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

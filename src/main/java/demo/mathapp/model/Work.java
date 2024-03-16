@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -26,11 +28,9 @@ public class Work {
     private long maxWorkTime;
     private double maxPoints;
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date activationTime;
+    private LocalDateTime activationTime;
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date deactivationTime;
+    private LocalDateTime deactivationTime;
     @ManyToOne
     private SchoolClass schoolClass;
     @OneToMany(mappedBy = "work",fetch = FetchType.LAZY,cascade = {CascadeType.ALL})

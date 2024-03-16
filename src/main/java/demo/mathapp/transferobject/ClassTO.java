@@ -1,5 +1,6 @@
 package demo.mathapp.transferobject;
 
+import demo.mathapp.transferobject.student.StudentTO;
 import lombok.Data;
 
 import java.util.List;

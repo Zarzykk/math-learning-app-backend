@@ -13,8 +13,6 @@ public class TaskTO {
 
     private double points;
 
-    private long workId;
-
     private long materialTopicId;
 
 }

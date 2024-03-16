@@ -3,18 +3,14 @@ package demo.mathapp.service.impl;
 import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.Material;
 import demo.mathapp.model.SchoolClass;
-import demo.mathapp.model.Student;
 import demo.mathapp.repository.SchoolClassRepository;
 import demo.mathapp.service.MaterialService;
 import demo.mathapp.service.SchoolClassService;
-import demo.mathapp.service.StudentService;
 import demo.mathapp.transferobject.ClassTO;
-import demo.mathapp.transferobject.StudentTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -58,7 +54,7 @@ public class SchoolClassServiceImpl implements SchoolClassService {
         for (SchoolClass schoolClass : allByTeacherId) {
             ClassTO to = new ClassTO();
             to.setId(schoolClass.getId());
-            to.setClassYearAndIndex(schoolClass.getClassYear().toString() + schoolClass.getClassIndex());
+            to.setClassYearAndIndex(schoolClass.getClassName());
             classTOList.add(to);
         }
         return classTOList;

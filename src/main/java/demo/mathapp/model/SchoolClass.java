@@ -33,4 +33,9 @@ public class SchoolClass {
     private List<Homework> homeworkList;
     @ManyToOne
     private Material material;
+
+
+    public String getClassName() {
+        return classYear + classIndex;
+    }
 }

@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -74,9 +76,9 @@ public class HomeworkServiceImpl implements HomeworkService {
         return points;
     }
 
-    private long calculateMaxWorkTime(Date start, Date end) {
-        long diff = Math.abs(end.getTime() - start.getTime());
-        return TimeUnit.SECONDS.convert(diff, TimeUnit.MILLISECONDS);
+    private long calculateMaxWorkTime(LocalDateTime start, LocalDateTime end) {
+        Duration duration = Duration.between(end, start);
+        return duration.getSeconds();
     }
 
     private HomeworkTO entityToTransfer(Homework homework){

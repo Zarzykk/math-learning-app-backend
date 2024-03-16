@@ -13,4 +13,6 @@ public interface WorkRepository extends JpaRepository<Work, Long> {
     @Query(nativeQuery = true,
             value = "select * from work where work_type = ?1")
     List<Work> findWorksByWorkType(String workType);
+
+    List<Work> findAllBySchoolClass_Teacher_Id(Long teacherId);
 }

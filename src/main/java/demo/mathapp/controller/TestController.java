@@ -1,7 +1,7 @@
 package demo.mathapp.controller;
 
 import demo.mathapp.model.Test;
-import demo.mathapp.service.TestService;
+import demo.mathapp.service.impl.TestService;
 import demo.mathapp.transferobject.test.TestBodyTO;
 import demo.mathapp.transferobject.test.TestHeaderTO;
 import demo.mathapp.transferobject.test.TestTO;

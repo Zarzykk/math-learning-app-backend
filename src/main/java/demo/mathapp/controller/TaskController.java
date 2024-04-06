@@ -1,7 +1,7 @@
 package demo.mathapp.controller;
 
 import demo.mathapp.model.Task;
-import demo.mathapp.service.TaskService;
+import demo.mathapp.service.impl.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

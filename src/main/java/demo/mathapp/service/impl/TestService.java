@@ -5,7 +5,6 @@ import demo.mathapp.model.Student;
 import demo.mathapp.model.Task;
 import demo.mathapp.model.Test;
 import demo.mathapp.repository.TestRepository;
-import demo.mathapp.service.TestService;
 import demo.mathapp.transferobject.TaskDTO;
 import demo.mathapp.transferobject.test.TestBodyTO;
 import demo.mathapp.transferobject.test.TestHeaderTO;
@@ -24,12 +23,11 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class TestServiceImpl implements TestService {
+public class TestService {
     private final TestRepository testRepository;
     private final StudentService studentService;
     private final ModelMapper modelMapper;
 
-    @Override
     public Test createTest(Test test) {
         test.setMaxPoints(calculateMaxPoints(test.getTasks()));
         test.setMaxWorkTime(calculateMaxWorkTime(
@@ -44,12 +42,10 @@ public class TestServiceImpl implements TestService {
         return testRepository.save(test);
     }
 
-    @Override
     public void deleteTest(Long id) {
         testRepository.deleteById(id);
     }
 
-    @Override
     public Test updateTest(Long id, Test test) {
         Test oldTest = (Test) testRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Test not found"));
@@ -65,7 +61,6 @@ public class TestServiceImpl implements TestService {
         return testRepository.save(oldTest);
     }
 
-    @Override
     public List<Test> findTestsBySchoolClass(Long schoolClassId) {
         return testRepository.findWorksByWorkType("TEST")
                 .stream()
@@ -74,7 +69,6 @@ public class TestServiceImpl implements TestService {
                 .collect(Collectors.toList());
     }
 
-    @Override
     public List<Test> findAllTestsPassedOrFailedForStudent(Long studentId, boolean passed) {
         Student student = studentService.getStudentById(studentId);
         List<Test> tests = new ArrayList<>();
@@ -84,7 +78,6 @@ public class TestServiceImpl implements TestService {
         return tests;
     }
 
-    @Override
     public List<TestHeaderTO> findTeacherTests(Long teacherId, Optional<Long> classId) {
         List<Test> collect = testRepository.findAllBySchoolClass_Teacher_Id(teacherId)
                 .stream()
@@ -114,7 +107,6 @@ public class TestServiceImpl implements TestService {
         return headers;
     }
 
-    @Override
     public TestBodyTO getTestDetails(Long testId) {
         Test test = modelMapper.map(testRepository.getById(testId),Test.class);
         TestBodyTO bodyTO = TestBodyTO
@@ -127,7 +119,6 @@ public class TestServiceImpl implements TestService {
         return bodyTO;
     }
 
-    @Override
     public TestTO getTest(Long testId) {
         Test test = modelMapper.map(testRepository.getById(testId), Test.class);
         TestTO to = new TestTO();

@@ -4,28 +4,24 @@ import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.HomeworkAnswer;
 import demo.mathapp.repository.HomeworkAnswerRepository;
 import demo.mathapp.repository.HomeworkResultRepository;
-import demo.mathapp.service.HomeworkAnswerService;
 import demo.mathapp.transferobject.HomeworkAnswerDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class HomeworkAnswerServiceImpl implements HomeworkAnswerService {
+public class HomeworkAnswerService {
     private final HomeworkAnswerRepository answerRepository;
     private final HomeworkResultRepository resultRepository;
 
-    @Override
     public HomeworkAnswer createAnswer(HomeworkAnswer answer) {
         return answerRepository.save(answer);
     }
 
-    @Override
     public void deleteAnswer(Long id) {
         answerRepository.deleteById(id);
     }
 
-    @Override
     public HomeworkAnswer updateAnswer(Long id, HomeworkAnswer answer) {
         HomeworkAnswer oldAnswer = (HomeworkAnswer) answerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Answer not found"));
@@ -34,22 +30,8 @@ public class HomeworkAnswerServiceImpl implements HomeworkAnswerService {
         return answerRepository.save(oldAnswer);
     }
 
-    private HomeworkAnswerDTO entityToTransfer(HomeworkAnswer homeworkAnswer) {
-        HomeworkAnswerDTO to = new HomeworkAnswerDTO();
-        to.setId(homeworkAnswer.getId());
-        to.setAnswer(homeworkAnswer.getAnswer());
-        to.setPoints(homeworkAnswer.getPoints());
-        to.setHomeworkResultId(homeworkAnswer.getResult().getId());
-        return to;
-    }
-
-    private HomeworkAnswer transferToEntity(HomeworkAnswerDTO to) {
-        HomeworkAnswer homeworkAnswer = new HomeworkAnswer();
-        homeworkAnswer.setId(to.getId());
-        homeworkAnswer.setAnswer(to.getAnswer());
-        homeworkAnswer.setPoints(to.getPoints());
-        homeworkAnswer.setResult(resultRepository.findById(to.getHomeworkResultId())
-                .orElseThrow(() -> new ResourceNotFoundException("Homework result for Answer with id=" + to.getId() + " not found")));
-        return homeworkAnswer;
+    public HomeworkAnswer findAnswerById(Long id) {
+        return (HomeworkAnswer) answerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Material not found"));
     }
 }

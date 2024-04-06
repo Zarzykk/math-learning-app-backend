@@ -2,6 +2,7 @@ package demo.mathapp.integration;
 
 
 import demo.mathapp.MathAppApplication;
+import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.Homework;
 import demo.mathapp.model.SchoolClass;
 import demo.mathapp.model.Task;
@@ -68,6 +69,15 @@ public class HomeworkControllerIntegrationTest {
 
         Assertions.assertEquals(2, homework.getTasks().size());
         Assertions.assertEquals(15, homework.getMaxPoints());
+    }
+
+    @Test
+    void shouldDeleteHomework() {
+        Homework homework = systemUnderTest.createHomework(getHomework());
+
+        systemUnderTest.deleteHomework(homework.getId());
+
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> systemUnderTest.findHomeworkById(homework.getId()));
     }
 
     private List<Task> getTasks() {

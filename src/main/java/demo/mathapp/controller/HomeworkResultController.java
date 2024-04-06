@@ -1,7 +1,7 @@
 package demo.mathapp.controller;
 
 import demo.mathapp.model.HomeworkResult;
-import demo.mathapp.service.HomeworkResultService;
+import demo.mathapp.service.impl.HomeworkResultService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

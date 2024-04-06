@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/HomeworkApp
+    username: postgres
+    password: 12345
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+      springframework:
+        security: DEBUG
+        web:
+          cors: DEBUG
+server:
+  error:
+    include-message: always
+application:
+  config:
+    api:
+      chatgpt:
+        url: ${CHATGPT_API_URL}
+        key: ${CHATGPT_API_KEY}
+app:
+  env: DEV

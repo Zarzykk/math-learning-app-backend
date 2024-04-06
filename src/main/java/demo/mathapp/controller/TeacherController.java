@@ -23,10 +23,10 @@ public class TeacherController {
     }
 
     @DeleteMapping("/delete/{teacherId}/{substituteTeacherId}")
-    public ResponseEntity<?> deleteTeacher(@PathVariable Long teacherId,
+    public ResponseEntity<Void> deleteTeacher(@PathVariable Long teacherId,
                                            @PathVariable Long substituteTeacherId) {
         teacherService.deleteTeacher(teacherId, substituteTeacherId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("get/id/{teacherId}")

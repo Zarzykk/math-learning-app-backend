@@ -24,8 +24,8 @@ public class HomeworkAnswerController {
     }
 
     @DeleteMapping("/delete/{answerId}")
-    public ResponseEntity<?> deleteAnswer(@PathVariable Long answerId) {
+    public ResponseEntity<Void> deleteAnswer(@PathVariable Long answerId) {
         homeworkAnswerService.deleteAnswer(answerId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

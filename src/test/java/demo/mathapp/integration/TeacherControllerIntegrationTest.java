@@ -1,7 +1,7 @@
 package demo.mathapp.integration;
 
 import demo.mathapp.MathAppApplication;
-import demo.mathapp.PasswordEncoder;
+import demo.mathapp.config.SecurityConfig;
 import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.SchoolClass;
 import demo.mathapp.model.Teacher;
@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Execution(SAME_THREAD)
 @ActiveProfiles("integration")
+@Transactional
 public class TeacherControllerIntegrationTest {
 
     private TeacherService systemUnderTest;
@@ -39,7 +41,7 @@ public class TeacherControllerIntegrationTest {
     @Autowired
     private TeacherRepository teacherRepository;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private SecurityConfig passwordEncoder;
 
     @BeforeEach
     public void beforeEach() {
@@ -67,8 +69,8 @@ public class TeacherControllerIntegrationTest {
         Teacher teacher1 = systemUnderTest.createTeacher(teacher);
         Assertions.assertNotEquals(teacher1.getFirstName(), "Sebastian");
         teacher.setFirstName("Sebastian");
-        systemUnderTest.updateTeacher(teacher.getId(), teacher);
 
+        systemUnderTest.updateTeacher(teacher.getId(), teacher);
         Teacher result = systemUnderTest.getTeacherByEmail(teacher.getEmail());
 
         teacher.setId(result.getId());
@@ -96,7 +98,7 @@ public class TeacherControllerIntegrationTest {
         teacher.setEmail(email);
         teacher.setLastName(lastName);
         teacher.setFirstName(firstName);
-        teacher.setClasses(getClasses(teacher));
+        teacher.setClasses(getSchoolClasses(teacher));
         return teacher;
     }
 
@@ -105,7 +107,7 @@ public class TeacherControllerIntegrationTest {
         return getTeacher("Jakub","Ruchel","jruchel@gmail.com");
     }
 
-    private List<SchoolClass> getClasses(Teacher teacher) {
+    private List<SchoolClass> getSchoolClasses(Teacher teacher) {
         List<SchoolClass> schoolClasses = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             SchoolClass schoolClass = getSchoolClass(i,"a");

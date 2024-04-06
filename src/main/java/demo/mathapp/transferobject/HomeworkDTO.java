@@ -3,14 +3,11 @@ package demo.mathapp.transferobject;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
-public class HomeworkTO {
+public class HomeworkDTO {
 
     private long id;
     private long maxWorkTime;

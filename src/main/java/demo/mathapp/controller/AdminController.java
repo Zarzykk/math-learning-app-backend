@@ -1,7 +1,7 @@
 package demo.mathapp.controller;
 
 import demo.mathapp.model.Admin;
-import demo.mathapp.service.AdminService;
+import demo.mathapp.service.impl.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +31,6 @@ public class AdminController {
         return ResponseEntity.ok(adminService.updateAdmin(adminId, admin));
     }
 
-    //TODO zwroc Void i noContent
     @DeleteMapping("/delete/{adminId}")
     public ResponseEntity<Void> deleteAdmin(@PathVariable Long adminId) {
         adminService.deleteAdmin(adminId);

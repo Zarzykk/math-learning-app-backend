@@ -20,9 +20,9 @@ public class TaskController {
     }
 
     @DeleteMapping("/delete/{taskId}")
-    public ResponseEntity<?> deleteTask(@PathVariable Long taskId) {
+    public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
         taskService.deleteTask(taskId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/update/{taskId}")

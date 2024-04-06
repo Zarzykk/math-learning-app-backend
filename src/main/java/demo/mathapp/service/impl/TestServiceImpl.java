@@ -5,9 +5,8 @@ import demo.mathapp.model.Student;
 import demo.mathapp.model.Task;
 import demo.mathapp.model.Test;
 import demo.mathapp.repository.TestRepository;
-import demo.mathapp.service.StudentService;
 import demo.mathapp.service.TestService;
-import demo.mathapp.transferobject.TaskTO;
+import demo.mathapp.transferobject.TaskDTO;
 import demo.mathapp.transferobject.test.TestBodyTO;
 import demo.mathapp.transferobject.test.TestHeaderTO;
 import demo.mathapp.transferobject.test.TestTO;
@@ -133,7 +132,7 @@ public class TestServiceImpl implements TestService {
         Test test = modelMapper.map(testRepository.getById(testId), Test.class);
         TestTO to = new TestTO();
         to.setId(test.getId());
-        to.setTasks(test.getTasks().stream().map(task -> modelMapper.map(task, TaskTO.class)).toList());
+        to.setTasks(test.getTasks().stream().map(task -> modelMapper.map(task, TaskDTO.class)).toList());
         to.setMaxTries(test.getMaxTries());
         return to;
     }

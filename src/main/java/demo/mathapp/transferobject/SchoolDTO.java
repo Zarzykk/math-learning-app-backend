@@ -6,9 +6,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MaterialTO {
-    private long id;
+public class SchoolDTO {
+
+    private Long id;
     private SchoolType schoolType;
-    private int classYear;
+    private String schoolName;
 
 }

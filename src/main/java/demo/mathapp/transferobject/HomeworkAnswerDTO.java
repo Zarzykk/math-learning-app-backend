@@ -8,7 +8,7 @@ import javax.persistence.Lob;
 
 @Data
 @NoArgsConstructor
-public class HomeworkAnswerTO {
+public class HomeworkAnswerDTO {
 
     private long id;
     private double points;

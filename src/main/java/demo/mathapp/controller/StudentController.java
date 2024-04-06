@@ -1,7 +1,7 @@
 package demo.mathapp.controller;
 
 import demo.mathapp.model.Student;
-import demo.mathapp.service.StudentService;
+import demo.mathapp.service.impl.StudentService;
 import demo.mathapp.transferobject.student.StudentBodyTO;
 import demo.mathapp.transferobject.student.StudentTO;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +30,9 @@ public class StudentController {
     }
 
     @DeleteMapping("/delete/{studentId}")
-    public ResponseEntity<?> deleteStudent(@PathVariable Long studentId) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long studentId) {
         studentService.deleteStudent(studentId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/id/{studentId}")

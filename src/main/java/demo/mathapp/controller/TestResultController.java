@@ -19,9 +19,9 @@ public class TestResultController {
     }
 
     @DeleteMapping("/delete/{resultId}")
-    public ResponseEntity<?> deleteResult(@PathVariable Long resultId) {
+    public ResponseEntity<Void> deleteResult(@PathVariable Long resultId) {
         testResultService.deleteResult(resultId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/create")

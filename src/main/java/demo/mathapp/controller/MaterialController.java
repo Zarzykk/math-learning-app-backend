@@ -2,7 +2,7 @@ package demo.mathapp.controller;
 
 import demo.mathapp.SchoolType;
 import demo.mathapp.model.Material;
-import demo.mathapp.service.MaterialService;
+import demo.mathapp.service.impl.MaterialService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +32,9 @@ public class MaterialController {
     }
 
     @DeleteMapping("/delete/{materialId}")
-    public ResponseEntity<?> deleteMaterial(@PathVariable Long materialId) {
+    public ResponseEntity<Void> deleteMaterial(@PathVariable Long materialId) {
         materialService.deleteMaterial(materialId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/update/{materialId}")

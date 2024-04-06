@@ -7,7 +7,7 @@ import demo.mathapp.repository.HomeworkRepository;
 import demo.mathapp.repository.HomeworkResultRepository;
 import demo.mathapp.repository.StudentRepository;
 import demo.mathapp.service.HomeworkResultService;
-import demo.mathapp.transferobject.HomeworkResultTO;
+import demo.mathapp.transferobject.HomeworkResultDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +38,8 @@ public class HomeworkResultServiceImpl implements HomeworkResultService {
         return resultRepository.save(oldResult);
     }
 
-    private HomeworkResultTO entityToTransfer(HomeworkResult homeworkResult){
-        HomeworkResultTO to = new HomeworkResultTO();
+    private HomeworkResultDTO entityToTransfer(HomeworkResult homeworkResult){
+        HomeworkResultDTO to = new HomeworkResultDTO();
         to.setId(homeworkResult.getId());
         to.setHomeworkId(homeworkResult.getWork().getId());
         to.setPoints(homeworkResult.getPoints());
@@ -48,7 +48,7 @@ public class HomeworkResultServiceImpl implements HomeworkResultService {
         return to;
     }
 
-    private HomeworkResult transferToEntity(HomeworkResultTO to){
+    private HomeworkResult transferToEntity(HomeworkResultDTO to){
         HomeworkResult homeworkResult = new HomeworkResult();
         homeworkResult.setId(to.getId());
         homeworkResult.setHomeworkAnswers(answerRepository.findAllByResult_Id(to.getId()));

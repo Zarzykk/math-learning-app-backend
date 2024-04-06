@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TestResultTO {
+public class TestResultDTO {
     private long id;
     private double workTimeResult;
     private double points;

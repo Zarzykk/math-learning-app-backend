@@ -3,14 +3,16 @@ package demo.mathapp.transferobject;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//TODO DTO zamiast TO
 @Data
 @NoArgsConstructor
-public class AdminTO {
+public class TeacherDTO {
 
-    private Long id;
+    private long id;
+
     private String firstName;
+
     private String lastName;
-    private String email;
-    private String password;
+
+
 }
+

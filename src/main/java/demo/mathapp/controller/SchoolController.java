@@ -2,7 +2,7 @@ package demo.mathapp.controller;
 
 import demo.mathapp.SchoolType;
 import demo.mathapp.model.School;
-import demo.mathapp.service.SchoolService;
+import demo.mathapp.service.impl.SchoolService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +27,9 @@ public class SchoolController {
     }
 
     @DeleteMapping("/delete/{schoolId}")
-    public ResponseEntity<?> deleteSchool(@PathVariable Long schoolId){
+    public ResponseEntity<Void> deleteSchool(@PathVariable Long schoolId){
         schoolService.deleteSchool(schoolId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/update/{schoolId}")

@@ -1,6 +1,6 @@
 package demo.mathapp.transferobject;
 
-public class TestAnswerTO {
+public class TestAnswerDTO {
 
     private long id;
 

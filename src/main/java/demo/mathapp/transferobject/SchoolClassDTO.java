@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SchoolClassTO {
+public class SchoolClassDTO {
 
     private long id;
 

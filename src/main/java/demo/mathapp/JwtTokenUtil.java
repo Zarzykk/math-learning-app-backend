@@ -18,12 +18,6 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenUtil {
 
-    //TODO przenies secret do zmiennych srodowiskowych
-    @Value("${jwt.secret}")
-    private String secret;
-
-    @Value("${jwt.expiration}")
-    private Long expiration;
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
@@ -53,7 +47,7 @@ public class JwtTokenUtil {
     }
 
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(System.getenv("secret")).parseClaimsJws(token).getBody();
     }
 
     private Boolean isTokenExpired(String token) {
@@ -66,8 +60,8 @@ public class JwtTokenUtil {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .setExpiration(new Date(System.currentTimeMillis() + Integer.parseInt(System.getenv("expiration")) * 1000L))
+                .signWith(SignatureAlgorithm.HS512, System.getenv("secret"))
                 .compact();
     }
 }

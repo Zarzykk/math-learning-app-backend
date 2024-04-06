@@ -1,7 +1,8 @@
 package demo.mathapp.controller;
 
 import demo.mathapp.model.MaterialTopic;
-import demo.mathapp.service.MaterialTopicService;
+
+import demo.mathapp.service.impl.MaterialTopicService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +30,8 @@ public class MaterialTopicController {
     }
 
     @DeleteMapping("/delete/{topicId}")
-    public ResponseEntity<?> deleteTopic(@PathVariable Long topicId){
+    public ResponseEntity<Void> deleteTopic(@PathVariable Long topicId){
         topicService.deleteTopic(topicId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

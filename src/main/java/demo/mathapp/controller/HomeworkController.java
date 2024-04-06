@@ -1,7 +1,7 @@
 package demo.mathapp.controller;
 
 import demo.mathapp.model.Homework;
-import demo.mathapp.service.HomeworkService;
+import demo.mathapp.service.impl.HomeworkService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +18,9 @@ public class HomeworkController {
     }
 
     @DeleteMapping("/delete/{homeworkId}")
-    public ResponseEntity<?> deleteHomework(@PathVariable Long homeworkId) {
+    public ResponseEntity<Void> deleteHomework(@PathVariable Long homeworkId) {
         homeworkService.deleteHomework(homeworkId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/update/{homeworkId}")

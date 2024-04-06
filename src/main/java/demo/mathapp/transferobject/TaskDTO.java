@@ -5,14 +5,14 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TeacherTO {
+public class TaskDTO {
 
     private long id;
 
-    private String firstName;
+    private String text;
 
-    private String lastName;
+    private double points;
 
+    private long materialTopicId;
 
 }
-

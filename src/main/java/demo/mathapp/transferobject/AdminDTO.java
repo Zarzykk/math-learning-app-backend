@@ -1,15 +1,15 @@
 package demo.mathapp.transferobject;
 
-import demo.mathapp.SchoolType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SchoolTO {
+public class AdminDTO {
 
     private Long id;
-    private SchoolType schoolType;
-    private String schoolName;
-
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
 }

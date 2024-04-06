@@ -4,12 +4,9 @@ import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.Material;
 import demo.mathapp.model.SchoolClass;
 import demo.mathapp.repository.SchoolClassRepository;
-import demo.mathapp.service.MaterialService;
-import demo.mathapp.transferobject.ClassTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

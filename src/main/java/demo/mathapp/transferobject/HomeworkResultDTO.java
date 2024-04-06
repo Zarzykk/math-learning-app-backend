@@ -1,12 +1,11 @@
 package demo.mathapp.transferobject;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class HomeworkResultTO {
+public class HomeworkResultDTO {
     private long id;
     private double homeworkTimeResult;
     private double points;

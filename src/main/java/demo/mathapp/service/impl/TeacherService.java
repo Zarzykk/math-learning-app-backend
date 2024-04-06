@@ -1,6 +1,6 @@
 package demo.mathapp.service.impl;
 
-import demo.mathapp.PasswordEncoder;
+import demo.mathapp.config.SecurityConfig;
 import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.SchoolClass;
 import demo.mathapp.model.Teacher;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TeacherService {
     private final TeacherRepository teacherRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final SecurityConfig passwordEncoder;
     private final SchoolClassService schoolClassService;
 
     public Teacher createTeacher(Teacher teacher) {

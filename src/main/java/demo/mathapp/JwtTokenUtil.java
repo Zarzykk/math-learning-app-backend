@@ -19,49 +19,49 @@ import java.util.stream.Collectors;
 public class JwtTokenUtil {
 
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(String secret, Long expiration, UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         String roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
-        claims.put("role",roles);
-        return doGenerateToken(claims, userDetails.getUsername());
+        claims.put("role", roles);
+        return doGenerateToken(secret, expiration, claims, userDetails.getUsername());
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = getUsernameFromToken(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    public Boolean validateToken(String secret, String token, UserDetails userDetails) {
+        final String username = getUsernameFromToken(secret, token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(secret, token));
     }
 
-    public String getUsernameFromToken(String token) {
-        return getClaimFromToken(token, Claims::getSubject);
+    public String getUsernameFromToken(String secret, String token) {
+        return getClaimFromToken(secret, token, Claims::getSubject);
     }
 
-    public Date getExpirationDateFromToken(String token) {
-        return getClaimFromToken(token, Claims::getExpiration);
+    public Date getExpirationDateFromToken(String secret, String token) {
+        return getClaimFromToken(secret, token, Claims::getExpiration);
     }
 
-    private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = getAllClaimsFromToken(token);
+    private <T> T getClaimFromToken(String secret, String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = getAllClaimsFromToken(secret, token);
         return claimsResolver.apply(claims);
     }
 
-    private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(System.getenv("secret")).parseClaimsJws(token).getBody();
+    private Claims getAllClaimsFromToken(String secret, String token) {
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
-    private Boolean isTokenExpired(String token) {
-        final Date expiration = getExpirationDateFromToken(token);
+    private Boolean isTokenExpired(String secret, String token) {
+        final Date expiration = getExpirationDateFromToken(secret, token);
         return expiration.before(new Date());
     }
 
-    private String doGenerateToken(Map<String, Object> claims, String subject) {
+    private String doGenerateToken(String secret, Long expiration, Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + Integer.parseInt(System.getenv("expiration")) * 1000L))
-                .signWith(SignatureAlgorithm.HS512, System.getenv("secret"))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000L))
+                .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 }

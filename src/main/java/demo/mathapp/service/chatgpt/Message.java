@@ -1,9 +1,17 @@
 package demo.mathapp.service.chatgpt;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Message{
-    public String role;
-    public String content;
+    @JsonProperty("role")
+    private String role;
+    @JsonProperty("content")
+    private String content;
 }

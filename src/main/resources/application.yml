@@ -29,5 +29,9 @@ application:
       chatgpt:
         url: ${CHATGPT_API_URL}
         key: ${CHATGPT_API_KEY}
+jwt:
+  token:
+    secret: ${JWT_SECRET}
+    expiration: ${JWT_EXPIRATION}
 app:
   env: DEV

@@ -11,7 +11,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Array;
 import java.net.URI;
+import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
@@ -20,9 +22,8 @@ public class ChatGptApiClient {
     private final ChatGptApiConfiguration configuration;
     private final RestTemplate restTemplate;
 
-    public String generateText(String prompt) {
-        return  sendChatGptApiRequest("/completions", HttpMethod.POST, TextCompletionRequest.class, createTextCompletionRequestBody(prompt), ChatGptTextCompletionResponse.class)
-                .getChoices().get(0).getMessage().getContent();
+    public ChatGptTextCompletionResponse generateText(String prompt) {
+        return  sendChatGptApiRequest("/completions", HttpMethod.POST, TextCompletionRequest.class, createTextCompletionRequestBody(prompt), ChatGptTextCompletionResponse.class);
     }
 
 
@@ -48,7 +49,7 @@ public class ChatGptApiClient {
     }
 
     private TextCompletionRequest createTextCompletionRequestBody(String prompt) {
-        return new TextCompletionRequest("gpt-3.5-turbo","user", prompt);
+        return new TextCompletionRequest("gpt-3.5-turbo", Collections.singletonList(new Message("user", prompt)));
     }
 
     private URI getChatGptApiUri(String url, String endpoint) {

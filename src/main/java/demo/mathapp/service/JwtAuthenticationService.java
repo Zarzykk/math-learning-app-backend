@@ -3,6 +3,7 @@ package demo.mathapp.service;
 import demo.mathapp.CustomUserDetails;
 import demo.mathapp.JwtTokenUtil;
 import demo.mathapp.LoginResponse;
+import demo.mathapp.model.token.JwtTokenConfiguration;
 import demo.mathapp.service.impl.UserDetailsService;
 import demo.mathapp.transferobject.LoginDTO;
 import demo.mathapp.transferobject.UserInfoDTO;
@@ -19,26 +20,24 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JwtAuthenticationService {
 
+    private final JwtTokenConfiguration jwtTokenConfiguration;
     private final AuthenticationManager authenticationManager;
-
-
     private final JwtTokenUtil jwtTokenUtil;
-
-
     private final UserDetailsService userDetailsService;
 
 
     public LoginResponse getLoginResponse(LoginDTO jwtRequest) {
         Authentication authenticate = null;
+        final String secret = jwtTokenConfiguration.getSecret();
+        final Long expiration = Long.parseLong(jwtTokenConfiguration.getExpiration());
         try {
             authenticate = authenticate(jwtRequest.getEmail(), jwtRequest.getPassword());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         SecurityContextHolder.getContext().setAuthentication(authenticate);
-
         CustomUserDetails userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(jwtRequest.getEmail());
-        String token = jwtTokenUtil.generateToken(userDetails);
+        String token = jwtTokenUtil.generateToken(secret, expiration, userDetails);
         UserInfoDTO userInfoDTO = new UserInfoDTO(userDetails.getId(), userDetails.getFirstName(), userDetails.getLastName());
 
         return new LoginResponse(userInfoDTO, token);

@@ -15,7 +15,7 @@ public class ChatGptController {
     private final ChatGptApiClient chatGptApiClient;
 
     @PostMapping("/generate")
-    public ResponseEntity<String> generatePrompt(@RequestBody String prompt) {
+    public ResponseEntity<ChatGptTextCompletionResponse> generatePrompt(@RequestBody String prompt) {
         return ResponseEntity.ok(chatGptApiClient.generateText(prompt));
     }
 }

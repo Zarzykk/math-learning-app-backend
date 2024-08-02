@@ -1,7 +1,8 @@
 package demo.mathapp.integration;
 
-import demo.mathapp.MathAppApplication;
+import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.HomeworkAnswer;
+import demo.mathapp.model.HomeworkResult;
 import demo.mathapp.repository.HomeworkAnswerRepository;
 import demo.mathapp.repository.HomeworkResultRepository;
 import demo.mathapp.service.impl.HomeworkAnswerService;
@@ -16,14 +17,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
 
 @Tag("slow")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(
-        classes = {MathAppApplication.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Execution(SAME_THREAD)
 @ActiveProfiles("integration")
@@ -56,7 +55,7 @@ public class HomeworkAnswerControllerIntegrationTest {
 
         systemUnderTest.deleteAnswer(answer.getId());
 
-        Assertions.assertThrows(ResponseStatusException.class, () -> systemUnderTest.findAnswerById(answer.getId()));
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> systemUnderTest.findAnswerById(answer.getId()));
     }
 
 

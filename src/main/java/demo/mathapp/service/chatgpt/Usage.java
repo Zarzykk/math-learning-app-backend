@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Usage{
     @JsonProperty("prompt_tokens")
-    public int promptTokens;
+    private int promptTokens;
     @JsonProperty("completion_tokens")
-    public int completionTokens;
+    private int completionTokens;
     @JsonProperty("total_tokens")
-    public int totalTokens;
+    private int totalTokens;
 }

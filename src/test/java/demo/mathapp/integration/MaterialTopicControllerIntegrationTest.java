@@ -1,17 +1,14 @@
 package demo.mathapp.integration;
 
-import demo.mathapp.MathAppApplication;
 import demo.mathapp.SchoolType;
 import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.Material;
 import demo.mathapp.model.MaterialTopic;
 import demo.mathapp.model.SchoolClass;
 import demo.mathapp.model.Task;
-import demo.mathapp.repository.MaterialRepository;
 import demo.mathapp.repository.MaterialTopicRepository;
 import demo.mathapp.repository.TaskRepository;
 import demo.mathapp.service.impl.MaterialTopicService;
-import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -24,7 +21,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,7 +29,6 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
 @Tag("slow")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(
-        classes = {MathAppApplication.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Execution(SAME_THREAD)
 @ActiveProfiles("integration")

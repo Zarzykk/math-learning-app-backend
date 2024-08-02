@@ -1,10 +1,9 @@
 package demo.mathapp.integration;
 
-import demo.mathapp.MathAppApplication;
 import demo.mathapp.config.SecurityConfig;
-import demo.mathapp.model.SchoolClass;
-import demo.mathapp.model.Student;
-import demo.mathapp.model.Teacher;
+import demo.mathapp.exception.ResourceNotFoundException;
+import demo.mathapp.model.*;
+import demo.mathapp.repository.HomeworkResultRepository;
 import demo.mathapp.repository.SchoolClassRepository;
 import demo.mathapp.repository.StudentRepository;
 import demo.mathapp.service.impl.StudentService;
@@ -20,12 +19,15 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
 
 @Tag("slow")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(
-        classes = {MathAppApplication.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Execution(SAME_THREAD)
 @ActiveProfiles("integration")
@@ -37,6 +39,8 @@ public class StudentControllerIntegrationTest {
     private StudentRepository studentRepository;
     @Autowired
     private SchoolClassRepository schoolClassRepository;
+    @Autowired
+    private HomeworkResultRepository homeworkResultRepository;
     @Autowired
     private SecurityConfig passwordEncoder;
 
@@ -54,6 +58,20 @@ public class StudentControllerIntegrationTest {
         Assertions.assertEquals(student, result);
     }
 
+    @Test
+    void shouldDeleteStudent() {
+        Student tempStudent = getStudent();
+        tempStudent.setWorkResults(Collections.singletonList(getHomeworkResult()));
+        Student student = systemUnderTest.createStudent(tempStudent);
+
+        systemUnderTest.deleteStudent(student.getId());
+
+        List<WorkResult> allHomeworks = homeworkResultRepository.findAll();
+
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> systemUnderTest.getStudentById(student.getId()));
+        Assertions.assertEquals(0, allHomeworks.size());
+        Assertions.assertNotNull(schoolClassRepository.findAll());
+    }
 
     private Student getStudent() {
         return getStudent("Sebastian", "Zarzycki", "szarzycki@gmail.com");
@@ -77,4 +95,31 @@ public class StudentControllerIntegrationTest {
         schoolClass.setTeacher(teacher);
         return schoolClass;
     }
+
+    public HomeworkResult getHomeworkResult() {
+        HomeworkResult result = new HomeworkResult();
+        result.setHomeworkAnswers(getAnswers());
+        result.setPoints(9);
+        result.setPassed(true);
+        result.setWorkTimeResult(30);
+        return result;
+    }
+
+    private List<HomeworkAnswer> getAnswers() {
+        List<HomeworkAnswer> answers = new ArrayList<>();
+        for (int i=0; i<3; i++) {
+            HomeworkAnswer answer = getAnswer(i);
+            answers.add(answer);
+        }
+        return answers;
+    }
+
+    private HomeworkAnswer getAnswer(int points) {
+        HomeworkAnswer answer = new HomeworkAnswer();
+        answer.setAnswer("Lorem ipsum dolor sit amet");
+        answer.setPoints(points);
+        answer.setResult(null);
+        return answer;
+    }
+
 }

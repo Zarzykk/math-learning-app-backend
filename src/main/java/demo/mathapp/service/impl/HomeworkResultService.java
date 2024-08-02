@@ -27,4 +27,9 @@ public class HomeworkResultService {
         return resultRepository.save(oldResult);
     }
 
+    public HomeworkResult findResultById(Long id) {
+        return (HomeworkResult) resultRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Result not found"));
+    }
+
 }

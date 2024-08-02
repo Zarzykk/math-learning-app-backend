@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -15,5 +16,5 @@ public class TextCompletionRequest {
     @JsonProperty("model")
     private String model;
     @JsonProperty("messages")
-    List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
 }

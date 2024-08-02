@@ -1,7 +1,6 @@
 package demo.mathapp.integration;
 
 
-import demo.mathapp.MathAppApplication;
 import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.Homework;
 import demo.mathapp.model.SchoolClass;
@@ -22,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,7 +29,6 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
 @Tag("slow")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(
-        classes = {MathAppApplication.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Execution(SAME_THREAD)
 @ActiveProfiles("integration")

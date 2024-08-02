@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -14,17 +13,17 @@ import java.util.List;
 @AllArgsConstructor
 public class ChatGptTextCompletionResponse {
     @JsonProperty("id")
-    public String id;
+    private String id;
     @JsonProperty("object")
-    public String object;
+    private String object;
     @JsonProperty("created")
-    public int created;
+    private int created;
     @JsonProperty("model")
-    public String model;
+    private String model;
     @JsonProperty("system_fingerprint")
-    public String systemFingerprint;
+    private String systemFingerprint;
     @JsonProperty("choices")
-    public List<Choice> choices;
+    private List<Choice> choices;
     @JsonProperty("usage")
-    public Usage usage;
+    private Usage usage;
 }

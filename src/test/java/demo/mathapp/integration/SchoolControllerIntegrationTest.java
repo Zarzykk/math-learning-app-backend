@@ -1,6 +1,5 @@
 package demo.mathapp.integration;
 
-import demo.mathapp.MathAppApplication;
 import demo.mathapp.SchoolType;
 import demo.mathapp.model.School;
 import demo.mathapp.model.SchoolClass;
@@ -28,7 +27,6 @@ import static org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD;
 @Tag("slow")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(
-        classes = {MathAppApplication.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Execution(SAME_THREAD)
 @ActiveProfiles("integration")

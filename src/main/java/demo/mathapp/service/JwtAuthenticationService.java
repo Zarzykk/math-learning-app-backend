@@ -36,7 +36,7 @@ public class JwtAuthenticationService {
             throw new RuntimeException(e);
         }
         SecurityContextHolder.getContext().setAuthentication(authenticate);
-        CustomUserDetails userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(jwtRequest.getEmail());
+        CustomUserDetails userDetails = getUserDetails(jwtRequest.getEmail());
         String token = jwtTokenUtil.generateToken(secret, expiration, userDetails);
         UserInfoDTO userInfoDTO = new UserInfoDTO(userDetails.getId(), userDetails.getFirstName(), userDetails.getLastName());
 
@@ -51,5 +51,9 @@ public class JwtAuthenticationService {
         } catch (BadCredentialsException e) {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
+    }
+
+    public CustomUserDetails getUserDetails(String email) {
+        return(CustomUserDetails) userDetailsService.loadUserByUsername(email);
     }
 }

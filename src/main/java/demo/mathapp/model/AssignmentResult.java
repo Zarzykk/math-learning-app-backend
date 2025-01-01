@@ -1,37 +1,33 @@
 package demo.mathapp.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Task {
+public class AssignmentResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private String description;
+    private Double points;
 
-    private double points;
+    private Boolean passed;
 
-    @Enumerated(value = EnumType.STRING)
-    private TaskType type;
+    @ManyToOne
+    @JoinColumn(name = "STUDENT_ID")
+    private Student student;
 
-    @JoinColumn(name = "MATERIAL_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Material material;
-
-
+    @OneToOne
+    @JoinColumn(name = "ASSIGNMENT_ID")
+    private Assignment assignment;
 
 }

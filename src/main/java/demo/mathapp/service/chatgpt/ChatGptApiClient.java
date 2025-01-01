@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.lang.reflect.Array;
 import java.net.URI;
 import java.util.Collections;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +23,9 @@ public class ChatGptApiClient {
     private final ChatGptApiConfiguration configuration;
     private final RestTemplate restTemplate;
 
-    public ChatGptTextCompletionResponse generateText(String prompt) {
-        return  sendChatGptApiRequest("/completions", HttpMethod.POST, TextCompletionRequest.class, createTextCompletionRequestBody(prompt), ChatGptTextCompletionResponse.class);
+    public ChatGptTextCompletionResponse sendMessage(List<Message> messages) {
+        return  sendChatGptApiRequest("/completions", HttpMethod.POST, TextCompletionRequest.class,
+                createTextCompletionRequestBody(messages), ChatGptTextCompletionResponse.class);
     }
 
 
@@ -48,8 +50,8 @@ public class ChatGptApiClient {
         return "Bearer " + key;
     }
 
-    private TextCompletionRequest createTextCompletionRequestBody(String prompt) {
-        return new TextCompletionRequest("gpt-3.5-turbo", Collections.singletonList(new Message("user", prompt)));
+    private TextCompletionRequest createTextCompletionRequestBody(List<Message> messages) {
+        return new TextCompletionRequest("gpt-4o", messages);
     }
 
     private URI getChatGptApiUri(String url, String endpoint) {

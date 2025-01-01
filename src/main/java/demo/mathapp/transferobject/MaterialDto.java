@@ -1,23 +1,19 @@
 package demo.mathapp.transferobject;
 
+import demo.mathapp.SchoolType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class SchoolClassDTO {
+@Builder
+public class MaterialDto {
 
-    private Long id;
-
+    private long id;
+    private SchoolType schoolType;
     private int classYear;
+    private String section;
 
-    private String classIndex;
-
-    private Long teacherId;
-
-    private Long schoolId;
 }

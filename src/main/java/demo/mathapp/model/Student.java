@@ -13,10 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @DiscriminatorValue(value = "STUDENT")
-public class Student extends User{
+public class Student extends User {
 
     @ManyToOne
     private SchoolClass studentClass;
-    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    private List<WorkResult> workResults;
+
 }

@@ -2,6 +2,7 @@ package demo.mathapp.controller;
 
 import demo.mathapp.model.SchoolClass;
 import demo.mathapp.service.impl.SchoolClassService;
+import demo.mathapp.transferobject.SchoolClassDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,7 @@ public class SchoolClassController {
     }
 
     @GetMapping("/get/{teacherId}")
-    public ResponseEntity<List<SchoolClass>> getClassesByTeacher(@PathVariable Long teacherId){
+    public ResponseEntity<List<SchoolClassDTO>> getClassesByTeacher(@PathVariable Long teacherId){
         return ResponseEntity.ok(classService.getClassesByTeacher(teacherId));
     }
 }

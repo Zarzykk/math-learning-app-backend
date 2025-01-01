@@ -23,6 +23,7 @@ public class School {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Enumerated(EnumType.STRING)
     private SchoolType schoolType;
     @Column(unique = true)
     private String schoolName;

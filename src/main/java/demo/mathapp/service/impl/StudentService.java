@@ -7,12 +7,13 @@ import demo.mathapp.model.Student;
 import demo.mathapp.repository.SchoolClassRepository;
 import demo.mathapp.repository.StudentRepository;
 import demo.mathapp.transferobject.student.StudentBodyTO;
-import demo.mathapp.transferobject.student.StudentTO;
+import demo.mathapp.transferobject.student.StudentDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -45,29 +46,40 @@ public class StudentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
     }
 
-    public List<StudentTO> getStudentsByClass(Long classId) {
-        List<StudentTO> studentTOs = new ArrayList<>();
+    public List<StudentDto> getStudentsByClass(Long classId) {
+        List<StudentDto> studentDtos = new ArrayList<>();
         SchoolClass schoolClass = classRepository.findById(classId)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found class by id=" + classId));
         for (Student student : schoolClass.getStudents()) {
-         StudentTO to = new StudentTO();
-         to.setId(student.getId());
-         to.setFirstName(student.getFirstName());
-         to.setLastName(student.getLastName());
-         studentTOs.add(to);
+            StudentDto to = new StudentDto();
+            to.setId(student.getId());
+            to.setFirstName(student.getFirstName());
+            to.setLastName(student.getLastName());
+            studentDtos.add(to);
         }
-        return studentTOs;
+        return studentDtos;
     }
 
     public StudentBodyTO getStudentDetails(Long studentId) {
         Student student = getStudentById(studentId);
-        student.getWorkResults();
-//        StudentBodyTO to = StudentBodyTO
-//                .builder()
-//                .
-//                .build();
         return null;
     }
 
 
+    public List<StudentDto> getStudentsByTeacherId(Long teacherId) {
+        List<SchoolClass> allTeacherClasses = classRepository.findAllByTeacher_Id(teacherId);
+        List<StudentDto> studentDtos = new ArrayList<>();
+        allTeacherClasses.forEach(schoolClass -> {
+                    studentDtos.addAll(schoolClass.getStudents().stream()
+                            .map(student -> StudentDto.builder()
+                                    .id(student.getId())
+                                    .schoolClassId(schoolClass.getId())
+                                    .classIndex(schoolClass.getClassName())
+                                    .firstName(student.getFirstName())
+                                    .lastName(student.getLastName())
+                                    .build())
+                            .toList());
+                });
+        return studentDtos;
+    }
 }

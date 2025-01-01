@@ -26,13 +26,6 @@ public class SchoolClass {
     private Teacher teacher;
     @ManyToOne(fetch = FetchType.LAZY)
     private School school;
-    @OneToMany(mappedBy = "schoolClass", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    private List<Test> testList;
-    @OneToMany(mappedBy = "schoolClass", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    private List<Homework> homeworkList;
-    @ManyToOne
-    private Material material;
-
 
     public String getClassName() {
         return classYear + classIndex;

@@ -1,45 +1,31 @@
 package demo.mathapp.controller;
 
 import demo.mathapp.SchoolType;
-import demo.mathapp.model.Material;
 import demo.mathapp.service.impl.MaterialService;
-import lombok.AllArgsConstructor;
+import demo.mathapp.transferobject.MaterialDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
-@RequestMapping("/api/materials")
+@RequiredArgsConstructor
+@RequestMapping("/api/material")
 public class MaterialController {
+
     private final MaterialService materialService;
 
-    @PostMapping("/create")
-    public ResponseEntity<Material> createMaterial(@RequestBody Material material) {
-        return ResponseEntity.ok(materialService.createMaterial(material));
+    @GetMapping("/all")
+    public ResponseEntity<List<MaterialDto>> getMaterialList() {
+        return ResponseEntity.ok(materialService.getMaterialList());
     }
 
-    @GetMapping("/school/{schoolType}")
-    public ResponseEntity<List<Material>> getMaterialsBySchoolType(@PathVariable SchoolType schoolType) {
-        return ResponseEntity.ok(materialService.findMaterialsBySchoolType(schoolType));
-    }
-
-    @GetMapping("/school/{schoolType}/class/{year}")
-    public ResponseEntity<Material> getMaterialBySchoolTypeAndYear(@PathVariable SchoolType schoolType,
-                                                                   @PathVariable int year) {
-        return ResponseEntity.ok(materialService.findMaterialBySchoolTypeAndYear(schoolType, year));
-    }
-
-    @DeleteMapping("/delete/{materialId}")
-    public ResponseEntity<Void> deleteMaterial(@PathVariable Long materialId) {
-        materialService.deleteMaterial(materialId);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping("/update/{materialId}")
-    public ResponseEntity<Material> updateMaterial(@PathVariable Long materialId,
-                                                   @RequestBody Material material) {
-        return ResponseEntity.ok(materialService.updateMaterial(materialId, material));
+    @GetMapping("/{schoolType}")
+    public ResponseEntity<List<MaterialDto>> getMaterialList(@PathVariable SchoolType schoolType) {
+        return ResponseEntity.ok(materialService.getMaterialListBySchoolType(schoolType));
     }
 }

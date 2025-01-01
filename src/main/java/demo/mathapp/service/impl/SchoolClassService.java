@@ -4,10 +4,12 @@ import demo.mathapp.exception.ResourceNotFoundException;
 import demo.mathapp.model.Material;
 import demo.mathapp.model.SchoolClass;
 import demo.mathapp.repository.SchoolClassRepository;
+import demo.mathapp.transferobject.SchoolClassDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,15 +21,16 @@ public class SchoolClassService {
         return classRepository.findSchoolClassBySchool_SchoolName(schoolName);
     }
 
-    public List<SchoolClass> getAllClasses(){
+    public List<SchoolClass> getAllClasses() {
         return classRepository.findAll();
     }
+
     public SchoolClass createSchoolClass(SchoolClass schoolClass) {
-        Material material = materialService.findMaterialBySchoolTypeAndYear(
-                schoolClass.getSchool().getSchoolType(),
-                schoolClass.getClassYear()
-        );
-        schoolClass.setMaterial(material);
+//        Material material = materialService.findMaterialBySchoolTypeAndYear(
+//                schoolClass.getSchool().getSchoolType(),
+//                schoolClass.getClassYear()
+//        );
+//        schoolClass.setMaterial(material);
         return classRepository.save(schoolClass);
     }
 
@@ -45,8 +48,15 @@ public class SchoolClassService {
     }
 
 
-    public List<SchoolClass> getClassesByTeacher(Long teacherId) {
-        return classRepository.findAllByTeacher_Id(teacherId);
+    public List<SchoolClassDTO> getClassesByTeacher(Long teacherId) {
+        return classRepository.findAllByTeacher_Id(teacherId).stream()
+                .map(schoolClass -> SchoolClassDTO.builder()
+                        .id(schoolClass.getId())
+                        .classIndex(schoolClass.getClassIndex())
+                        .classYear(schoolClass.getClassYear())
+                        .teacherId(schoolClass.getTeacher().getId())
+                        .build())
+                .collect(Collectors.toList());
     }
 
 }

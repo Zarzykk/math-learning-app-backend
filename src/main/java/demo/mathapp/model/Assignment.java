@@ -7,31 +7,33 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Task {
+public class Assignment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private String description;
+    private double maxPoints;
 
-    private double points;
+    private LocalDateTime activationTime;
+
+    private LocalDateTime deactivationTime;
 
     @Enumerated(value = EnumType.STRING)
-    private TaskType type;
+    private AssignmentType type;
 
+    @ManyToOne
+    @JoinColumn(name = "CLASS_ID")
+    private SchoolClass schoolClass;
+
+    @ManyToOne
     @JoinColumn(name = "MATERIAL_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
     private Material material;
-
-
-
 }

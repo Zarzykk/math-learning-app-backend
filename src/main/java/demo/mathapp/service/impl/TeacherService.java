@@ -44,9 +44,9 @@ public class TeacherService {
 
     public void setSubstituteTeacher(Long oldTeacherId, Long newTeacherId) {
         Teacher teacher = getTeacherById(newTeacherId);
-        List<SchoolClass> classesByTeacher = schoolClassService.getClassesByTeacher(oldTeacherId);
-        classesByTeacher.forEach(schoolClass -> schoolClass.setTeacher(teacher));
-        teacher.getClasses().addAll(classesByTeacher);
+//        List<SchoolClass> classesByTeacher = schoolClassService.getClassesByTeacher(oldTeacherId);
+//        classesByTeacher.forEach(schoolClass -> schoolClass.setTeacher(teacher));
+//        teacher.getClasses().addAll(classesByTeacher);
         teacherRepository.save(teacher);
     }
 

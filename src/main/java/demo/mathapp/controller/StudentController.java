@@ -3,7 +3,7 @@ package demo.mathapp.controller;
 import demo.mathapp.model.Student;
 import demo.mathapp.service.impl.StudentService;
 import demo.mathapp.transferobject.student.StudentBodyTO;
-import demo.mathapp.transferobject.student.StudentTO;
+import demo.mathapp.transferobject.student.StudentDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,11 @@ import java.util.List;
 public class StudentController {
     private final StudentService studentService;
 
-    //TODO usun nazwy metod 'create, get itd.' ze sciezek
+    @GetMapping("/get/all/{teacherId}")
+    public ResponseEntity<List<StudentDto>> getAllStudentsByTeacher(@PathVariable("teacherId") Long teacherId) {
+        return ResponseEntity.ok(studentService.getStudentsByTeacherId(teacherId));
+    }
+
     @PostMapping("/create")
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         return ResponseEntity.status(201).body(
@@ -47,7 +51,7 @@ public class StudentController {
     }
 
     @GetMapping("/get/{classId}")
-    public ResponseEntity<List<StudentTO>> getStudentsByClass(@PathVariable Long classId){
+    public ResponseEntity<List<StudentDto>> getStudentsByClass(@PathVariable Long classId){
         return ResponseEntity.ok(studentService.getStudentsByClass(classId));
     }
 
